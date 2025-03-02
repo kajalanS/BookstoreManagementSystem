@@ -8,7 +8,7 @@ namespace BookstoreManagementSystemLibrary.Database.Core.Enum
     /// </summary>
     public enum OrderType
     {
-        Regular,
-        PreOrder
+        Regular = 1,
+        PreOrder = 2
     }
 }

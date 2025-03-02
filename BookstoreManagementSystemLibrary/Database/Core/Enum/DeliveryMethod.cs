@@ -5,7 +5,7 @@
     /// </summary>
     public enum DeliveryMethod
     {
-        InStorePickup,
-        Delivery
+        InStorePickup = 1,
+        Delivery = 2
     }
 }

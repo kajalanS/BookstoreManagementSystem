@@ -1,52 +1,80 @@
 ﻿
 using BookstoreManagementSystemLibrary.Database.Core;
-using BookstoreManagementSystemLibrary.Database.EF.Contexts;
 using BookstoreManagementSystemLibrary.Database.EF.Enum;
 using BookstoreManagementSystemLibrary.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace BookstoreManagementSystemLibrary.Database.EF
 {
     public class EFDataConnector : IDataConnector
     {
-        protected readonly BaseDbContext context;
-        protected readonly string databaseName;
-        protected readonly string connectionString;
+        #region Property
 
-        public EFDataConnector(EFConnectionType connectionType)
+        protected readonly EFDBContext context;
+        protected readonly EFConnectionType connectionType;
+        protected readonly Dictionary<EFConnectionType, string> connectionStringList = [];
+
+        #endregion
+
+        #region Core
+
+        public EFDataConnector(EFConnectionType connectionType, Dictionary<EFConnectionType, string> connectionStringList)
         {
-            if (connectionType == EFConnectionType.MSql)
+            if (connectionStringList is null)
             {
-                var optionsBuilder = new DbContextOptionsBuilder<SqlDBContext>();
-                context = new SqlDBContext(optionsBuilder.Options);
+                throw new ArgumentNullException(nameof(connectionStringList));
             }
-            else if (connectionType == EFConnectionType.Mysql)
+
+            context = new EFDBContext();
+            context.SetConnectionType(connectionType);
+            context.SetConnectionList(connectionStringList);
+
+            this.connectionType = connectionType;
+            this.connectionStringList = connectionStringList;
+        }
+
+        #endregion
+
+        #region DataConnector
+
+        public User? CreateUser(User user)
+        {
+            using var transaction = context.Database.BeginTransaction();
+
+            try
             {
-                var optionsBuilder = new DbContextOptionsBuilder<MySQLDBContext>();
-                context = new MySQLDBContext(optionsBuilder.Options);
+                context.Users.Add(user);
+                context.SaveChanges();
+
+                transaction.Commit();
+                return user;
             }
-            else
+            catch (Exception)
             {
-                var optionsBuilder = new DbContextOptionsBuilder<MemoryDBContext>();
-                context = new MemoryDBContext(optionsBuilder.Options);
+                transaction.Rollback();
+                return null;
             }
         }
 
-        public EFDataConnector(string databaseName) : this(EFConnectionType.Memory)
+        public Book? CreateBook(Book book)
         {
-            this.databaseName = databaseName;
+            using var transaction = context.Database.BeginTransaction();
+
+            try
+            {
+                context.Books.Add(book);
+                context.SaveChanges();
+
+                transaction.Commit();
+                return book;
+            }
+            catch (Exception)
+            {
+                transaction.Rollback();
+                return null;
+            }
         }
 
-        public EFDataConnector(string connectionString, EFConnectionType connectionType) : this(connectionType)
-        {
-            this.connectionString = connectionString;
-        }
+        #endregion
 
-        public User CreateUser(User user)
-        {
-            user.UserID = context.Users.Count() + 1;
-            context.Users.Add(user);
-            return user;
-        }
     }
 }

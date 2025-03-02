@@ -1,16 +1,20 @@
 ﻿using BookstoreManagementSystemLibrary.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace BookstoreManagementSystemLibrary.Database.Core
 {
-    public interface IDataConnector
-    {
-        // CREATE USER
-        User CreateUser(User user);
 
+    public interface IDataConnector : IUserRepo, IBookRepo
+    {
+
+    }
+
+    public interface IUserRepo
+    {
+        User? CreateUser(User user);
+    }
+    public interface IBookRepo
+    {
+        Book? CreateBook(Book book);
     }
 }

@@ -5,7 +5,7 @@ VisualStudioVersion = 17.11.35208.52
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookstoreManagementSystemUI", "BookstoreManagementSystemUI\BookstoreManagementSystemUI.csproj", "{FF831F6C-CE17-4C48-BB18-E262BAD5F35D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookstoreManagementSystemLibrary", "BookstoreManagementSystemLibrary\BookstoreManagementSystemLibrary.csproj", "{E4ECB3C2-2EEE-4423-B0FD-810D94D2F83D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookstoreManagementSystemLibrary", "BookstoreManagementSystemLibrary\BookstoreManagementSystemLibrary.csproj", "{E4ECB3C2-2EEE-4423-B0FD-810D94D2F83D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

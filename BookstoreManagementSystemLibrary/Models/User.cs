@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using BookstoreManagementSystemLibrary.Database.Core.Enum;
+using System.ComponentModel.DataAnnotations;
 
 namespace BookstoreManagementSystemLibrary.Models
 {
@@ -7,55 +8,77 @@ namespace BookstoreManagementSystemLibrary.Models
     /// </summary>
     public class User
     {
+        public User()
+        {
+        }
+
+        public User(string? username, string? passwordHash, UserRole? role, string? email, DateTime? lastLogin, UserStatus? status = UserStatus.Active, bool? isDeleted = false)
+        {
+            Username = username;
+            PasswordHash = passwordHash;
+            Role = role;
+            Email = email;
+            LastLogin = lastLogin;
+            Status = status;
+            IsDeleted = isDeleted;
+        }
+
+        public User(int? userId, string? username, string? passwordHash, UserRole? role, string? email, DateTime? lastLogin, UserStatus? status, bool? isDeleted, ICollection<Order>? orders, ICollection<AuditLog>? auditLogs) : this(username, passwordHash, role, email, lastLogin, status, isDeleted)
+        {
+            UserId = userId;
+            Orders = orders;
+            AuditLogs = auditLogs;
+        }
+
         /// <summary>
         /// Gets or sets the unique identifier for the user.
         /// </summary>
         [Key]
-        public int UserID { get; set; }
+        public int? UserId { get; set; }
 
         /// <summary>
         /// Gets or sets the username.
         /// </summary>
-        public string Username { get; set; }
+        public string? Username { get; set; }
 
         /// <summary>
         /// Gets or sets the hashed password.
         /// </summary>
-        public string PasswordHash { get; set; }
+        public string? PasswordHash { get; set; }
 
         /// <summary>
         /// Gets or sets the role of the user.
         /// </summary>
-        public string Role { get; set; }
+        public UserRole? Role { get; set; }
 
         /// <summary>
         /// Gets or sets the email of the user.
         /// </summary>
-        public string Email { get; set; }
+        public string? Email { get; set; }
 
         /// <summary>
         /// Gets or sets the last login time.
         /// </summary>
-        public DateTime LastLogin { get; set; }
+        public DateTime? LastLogin { get; set; }
 
         /// <summary>
         /// Gets or sets the status of the user.
         /// </summary>
-        public string Status { get; set; }
+        public UserStatus? Status { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the user is deleted.
         /// </summary>
-        public bool IsDeleted { get; set; }
+        public bool? IsDeleted { get; set; }
 
         /// <summary>
         /// Navigation property for orders created by the user.
         /// </summary>
-        public virtual ICollection<Order> Orders { get; set; }
+        public ICollection<Order>? Orders { get; set; }
 
         /// <summary>
         /// Navigation property for audit logs created by the user.
         /// </summary>
-        public virtual ICollection<AuditLog> AuditLogs { get; set; }
+        public ICollection<AuditLog>? AuditLogs { get; set; }
     }
 }

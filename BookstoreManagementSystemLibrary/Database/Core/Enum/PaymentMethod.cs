@@ -5,9 +5,9 @@
     /// </summary>
     public enum PaymentMethod
     {
-        CreditCard,
-        Cash,
-        DebitCard,
-        Other
+        CreditCard = 1,
+        Cash = 2,
+        DebitCard = 3,
+        Other = 4
     }
 }

@@ -1,5 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BookstoreManagementSystemLibrary.Models
 {
@@ -8,52 +8,73 @@ namespace BookstoreManagementSystemLibrary.Models
     /// </summary>
     public class OrderDetail
     {
+        public OrderDetail()
+        {
+        }
+
+        public OrderDetail(int? quantity, decimal? unitPrice, decimal? discount, bool? isDeleted = false)
+        {
+            Quantity = quantity;
+            UnitPrice = unitPrice;
+            Discount = discount;
+            IsDeleted = isDeleted;
+        }
+
+        public OrderDetail(int? orderDetailId, int? orderId, int? bookId, int? quantity, decimal? unitPrice, decimal? discount, bool? isDeleted, Order? order, Book? book) : this(quantity, unitPrice, discount, isDeleted)
+        {
+            OrderDetailId = orderDetailId;
+            OrderId = orderId;
+            BookId = bookId;
+            Order = order;
+            Book = book;
+        }
+
         /// <summary>
         /// Gets or sets the unique identifier for the order detail.
         /// </summary>
         [Key]
-        public int OrderDetailID { get; set; }
+        public int? OrderDetailId { get; set; }
 
         /// <summary>
         /// Gets or sets the foreign key to the order.
         /// </summary>
-        public int OrderID { get; set; }
+        public int? OrderId { get; set; }
 
         /// <summary>
         /// Gets or sets the foreign key to the book.
         /// </summary>
-        public int BookID { get; set; }
+        public int? BookId { get; set; }
 
         /// <summary>
         /// Gets or sets the quantity of the book ordered.
         /// </summary>
-        public int Quantity { get; set; }
+        public required int? Quantity { get; set; }
 
         /// <summary>
         /// Gets or sets the unit price of the book.
         /// </summary>
-        public decimal UnitPrice { get; set; }
+        public required decimal? UnitPrice { get; set; }
 
         /// <summary>
         /// Gets or sets the discount applied to the book.
         /// </summary>
-        public decimal Discount { get; set; }
+        public required decimal? Discount { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the record is deleted.
         /// </summary>
-        public bool IsDeleted { get; set; }
+        public required bool? IsDeleted { get; set; }
 
         /// <summary>
         /// Navigation property to the associated order.
         /// </summary>
-        //[ForeignKey("OrderID")]
-        public virtual Order Order { get; set; }
+        [ForeignKey("OrderId")]
+        public virtual Order? Order { get; set; }
 
         /// <summary>
         /// Navigation property to the associated book.
         /// </summary>
-        //[ForeignKey("BookID")]
-        public virtual Book Book { get; set; }
+        [ForeignKey("BookId")]
+        public virtual Book? Book { get; set; }
     }
 }

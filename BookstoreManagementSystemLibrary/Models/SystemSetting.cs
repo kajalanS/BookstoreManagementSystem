@@ -7,25 +7,41 @@ namespace BookstoreManagementSystemLibrary.Models
     /// </summary>
     public class SystemSetting
     {
+        public SystemSetting()
+        {
+        }
+
+        public SystemSetting(string? settingName, string? settingValue, string? description)
+        {
+            SettingName = settingName;
+            SettingValue = settingValue;
+            Description = description;
+        }
+
+        public SystemSetting(int? systemSettingId, string? settingName, string? settingValue, string? description) : this(settingName, settingValue, description)
+        {
+            SystemSettingId = systemSettingId;
+        }
+
         /// <summary>
         /// Gets or sets the unique identifier for the setting.
         /// </summary>
         [Key]
-        public int SettingID { get; set; }
+        public required int? SystemSettingId { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the setting.
         /// </summary>
-        public string SettingName { get; set; }
+        public required string? SettingName { get; set; }
 
         /// <summary>
         /// Gets or sets the value of the setting.
         /// </summary>
-        public string SettingValue { get; set; }
+        public required string? SettingValue { get; set; }
 
         /// <summary>
         /// Gets or sets the description of the setting.
         /// </summary>
-        public string Description { get; set; }
+        public required string? Description { get; set; }
     }
 }

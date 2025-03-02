@@ -5,8 +5,8 @@
     /// </summary>
     public enum UserRole
     {
-        Admin,
-        Employee,
-        Customer
+        Admin = 1,
+        Employee = 2,
+        Customer = 3,
     }
 }

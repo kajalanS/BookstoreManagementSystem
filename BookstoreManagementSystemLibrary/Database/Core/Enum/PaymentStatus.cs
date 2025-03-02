@@ -5,8 +5,8 @@
     /// </summary>
     public enum PaymentStatus
     {
-        Paid,
-        Pending,
-        Failed
+        Paid = 1,
+        Pending = 2,
+        Failed = 3,
     }
 }

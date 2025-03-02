@@ -7,30 +7,47 @@ namespace BookstoreManagementSystemLibrary.Models
     /// </summary>
     public class Category
     {
+        public Category()
+        {
+        }
+
+        public Category(string? categoryName, string? description, bool? isDeleted = false)
+        {
+            CategoryName = categoryName;
+            Description = description;
+            IsDeleted = isDeleted;
+        }
+
+        public Category(int categoryId, string? categoryName, string? description, bool? isDeleted, ICollection<Book>? books) : this(categoryName, description, isDeleted)
+        {
+            CategoryId = categoryId;
+            Books = books;
+        }
+
         /// <summary>
         /// Gets or sets the unique identifier for the category.
         /// </summary>
         [Key]
-        public int CategoryID { get; set; }
+        public int CategoryId { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the category.
         /// </summary>
-        public string CategoryName { get; set; }
+        public required string? CategoryName { get; set; }
 
         /// <summary>
         /// Gets or sets the description of the category.
         /// </summary>
-        public string Description { get; set; }
+        public required string? Description { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the category is deleted.
         /// </summary>
-        public bool IsDeleted { get; set; }
+        public required bool? IsDeleted { get; set; } = false;
 
         /// <summary>
         /// Navigation property for the books in this category.
         /// </summary>
-        public virtual ICollection<Book> Books { get; set; }
+        public virtual ICollection<Book>? Books { get; set; }
     }
 }

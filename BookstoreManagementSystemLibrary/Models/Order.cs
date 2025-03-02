@@ -1,5 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using BookstoreManagementSystemLibrary.Database.Core.Enum;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BookstoreManagementSystemLibrary.Models
 {
@@ -8,82 +9,109 @@ namespace BookstoreManagementSystemLibrary.Models
     /// </summary>
     public class Order
     {
+        public Order()
+        {
+        }
+
+        public Order(DateTime? orderDate, decimal? totalAmount, OrderStatus? orderStatus, DeliveryMethod? deliveryMethod, PaymentMethod? paymentMethod, PaymentStatus? paymentStatus, OrderType? orderType, bool? isDeleted = false)
+        {
+            OrderDate = orderDate;
+            TotalAmount = totalAmount;
+            OrderStatus = orderStatus;
+            DeliveryMethod = deliveryMethod;
+            PaymentMethod = paymentMethod;
+            PaymentStatus = paymentStatus;
+            OrderType = orderType;
+            IsDeleted = isDeleted;
+        }
+
+        public Order(int? orderId, int? customerId, int? userId, DateTime? orderDate, decimal? totalAmount, OrderStatus? orderStatus, DeliveryMethod? deliveryMethod, PaymentMethod? paymentMethod, PaymentStatus? paymentStatus, OrderType? orderType, bool? isDeleted, Customer? customer, User? user, ICollection<OrderDetail>? orderDetails, Receipt? receipt) : this(orderDate, totalAmount, orderStatus, deliveryMethod, paymentMethod, paymentStatus, orderType, isDeleted)
+        {
+            OrderId = orderId;
+            CustomerId = customerId;
+            UserId = userId;
+            Customer = customer;
+            User = user;
+            OrderDetails = orderDetails;
+            Receipt = receipt;
+        }
+
         /// <summary>
         /// Gets or sets the unique identifier for the order.
         /// </summary>
         [Key]
-        public int OrderID { get; set; }
+        public required int? OrderId { get; set; }
 
         /// <summary>
         /// Gets or sets the foreign key for the customer placing the order.
         /// </summary>
-        public int CustomerID { get; set; }
+        public required int? CustomerId { get; set; }
 
         /// <summary>
         /// Gets or sets the foreign key for the user who created the order.
         /// </summary>
-        public int UserID { get; set; }
+        public required int? UserId { get; set; }
 
         /// <summary>
         /// Gets or sets the date the order was placed.
         /// </summary>
-        public DateTime OrderDate { get; set; }
+        public required DateTime? OrderDate { get; set; }
 
         /// <summary>
         /// Gets or sets the total amount of the order.
         /// </summary>
-        public decimal TotalAmount { get; set; }
+        public required decimal? TotalAmount { get; set; }
 
         /// <summary>
         /// Gets or sets the status of the order.
         /// </summary>
-        public string OrderStatus { get; set; }
+        public required OrderStatus? OrderStatus { get; set; }
 
         /// <summary>
         /// Gets or sets the method used for order delivery.
         /// </summary>
-        public string DeliveryMethod { get; set; }
+        public required DeliveryMethod? DeliveryMethod { get; set; }
 
         /// <summary>
         /// Gets or sets the payment method used for the order.
         /// </summary>
-        public string PaymentMethod { get; set; }
+        public required PaymentMethod? PaymentMethod { get; set; }
 
         /// <summary>
         /// Gets or sets the payment status of the order.
         /// </summary>
-        public string PaymentStatus { get; set; }
+        public required PaymentStatus? PaymentStatus { get; set; }
 
         /// <summary>
         /// Gets or sets the type of the order.
         /// </summary>
-        public string OrderType { get; set; }
+        public required OrderType? OrderType { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the order is deleted.
         /// </summary>
-        public bool IsDeleted { get; set; }
+        public required bool? IsDeleted { get; set; } = false;
 
         /// <summary>
         /// Navigation property to the associated customer.
         /// </summary>
-        //[ForeignKey("CustomerID")]
-        public virtual Customer Customer { get; set; }
+        [ForeignKey("CustomerId")]
+        public virtual Customer? Customer { get; set; }
 
         /// <summary>
         /// Navigation property to the associated user.
         /// </summary>
-        //[ForeignKey("UserID")]
-        public virtual User User { get; set; }
+        [ForeignKey("UserId")]
+        public virtual User? User { get; set; }
 
         /// <summary>
         /// Navigation property for the order details.
         /// </summary>
-        public virtual ICollection<OrderDetail> OrderDetails { get; set; }
+        public virtual ICollection<OrderDetail>? OrderDetails { get; set; }
 
         /// <summary>
         /// Navigation property for the receipt generated for this order.
         /// </summary>
-        public virtual Receipt Receipt { get; set; }
+        public virtual Receipt? Receipt { get; set; }
     }
 }
