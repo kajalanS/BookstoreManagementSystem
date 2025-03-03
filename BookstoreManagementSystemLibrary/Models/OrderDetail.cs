@@ -19,6 +19,13 @@ namespace BookstoreManagementSystemLibrary.Models
             Discount = discount;
             IsDeleted = isDeleted;
         }
+        public OrderDetail(int? quantity, decimal? unitPrice, decimal? discount = 0, bool? isDeleted = false, Order? order = default, Book? book = default) : this(quantity, unitPrice, discount, isDeleted)
+        {
+            Order = order;
+            Book = book;
+            OrderId = order?.OrderId;
+            BookId = book?.BookId;
+        }
 
         public OrderDetail(int? orderDetailId, int? orderId, int? bookId, int? quantity, decimal? unitPrice, decimal? discount, bool? isDeleted, Order? order, Book? book) : this(quantity, unitPrice, discount, isDeleted)
         {

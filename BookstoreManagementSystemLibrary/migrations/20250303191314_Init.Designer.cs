@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookstoreManagementSystemLibrary.Migrations
 {
     [DbContext(typeof(EFDBContext))]
-    [Migration("20250302193455_Init")]
+    [Migration("20250303191314_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -83,6 +83,9 @@ namespace BookstoreManagementSystemLibrary.Migrations
 
                     b.Property<string>("ISBN")
                         .HasColumnType("longtext");
+
+                    b.Property<byte[]>("Image")
+                        .HasColumnType("longblob");
 
                     b.Property<bool?>("IsDeleted")
                         .HasColumnType("tinyint(1)");

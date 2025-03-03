@@ -139,6 +139,7 @@ namespace BookstoreManagementSystemLibrary.Migrations
                     PublicationYear = table.Column<int>(type: "int", nullable: true),
                     Language = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    Image = table.Column<byte[]>(type: "longblob", nullable: true),
                     IsDeleted = table.Column<bool>(type: "tinyint(1)", nullable: true)
                 },
                 constraints: table =>

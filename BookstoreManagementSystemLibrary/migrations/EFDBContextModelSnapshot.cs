@@ -81,6 +81,9 @@ namespace BookstoreManagementSystemLibrary.Migrations
                     b.Property<string>("ISBN")
                         .HasColumnType("longtext");
 
+                    b.Property<byte[]>("Image")
+                        .HasColumnType("longblob");
+
                     b.Property<bool?>("IsDeleted")
                         .HasColumnType("tinyint(1)");
 

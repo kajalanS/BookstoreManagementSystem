@@ -1,6 +1,8 @@
 using BookstoreManagementSystemLibrary;
+using BookstoreManagementSystemLibrary.Database.EF;
 using BookstoreManagementSystemLibrary.Database.EF.Enum;
 using MaterialSkin;
+using Microsoft.Identity.Client.NativeInterop;
 using System.Configuration;
 
 namespace BookstoreManagementSystemUI
@@ -21,7 +23,7 @@ namespace BookstoreManagementSystemUI
 
             ThemeSetup();
 
-            Application.Run(new frm_login());
+            Application.Run(new frmLogin());
         }
 
         private static void ThemeSetup()
@@ -29,7 +31,7 @@ namespace BookstoreManagementSystemUI
             var materialSkinManager = MaterialSkinManager.Instance;
             materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
             ColorScheme colorScheme = new ColorScheme(Primary.BlueGrey800, Primary.BlueGrey900, Primary.BlueGrey500, Accent.LightBlue200, TextShade.WHITE);
-            
+
             materialSkinManager.ColorScheme = colorScheme;
         }
 
@@ -48,6 +50,21 @@ namespace BookstoreManagementSystemUI
 
             // init the database 
             GlobalConfig.InitilizeConnection([EFConnectionType.Mysql], connectionStringList, salt);
+
+            // SeederBuild
+            //GlobalConfig.Process((process, salt) =>
+            //{
+            //    var adminUser = new BookstoreManagementSystemLibrary.Models.User
+            //    {
+            //        UserId = 1,
+            //        Email = "info.ksoftm@gmail.com",
+            //        PasswordHash = "J8ZhtRzGgmjE0Owwm06aMWt/uV0HYDmUSqED6n1Yk5Y=",
+            //        Username = "admin",
+            //        Role = BookstoreManagementSystemLibrary.Database.Core.Enum.UserRole.Admin,
+            //        Status = BookstoreManagementSystemLibrary.Database.Core.Enum.UserStatus.Active,
+            //    };
+            //    process.CreateUser(adminUser);
+            //});
         }
     }
 }

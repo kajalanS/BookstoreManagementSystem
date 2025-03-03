@@ -36,7 +36,7 @@ namespace BookstoreManagementSystemLibrary.Database.EF
 
         #region DataConnector
 
-        public User? CreateUser(User user)
+        public Result<User> CreateUser(User user)
         {
             using var transaction = context.Database.BeginTransaction();
 
@@ -46,16 +46,16 @@ namespace BookstoreManagementSystemLibrary.Database.EF
                 context.SaveChanges();
 
                 transaction.Commit();
-                return user;
+                return new Result<User>(data: user);
             }
             catch (Exception)
             {
                 transaction.Rollback();
-                return null;
+                return new Result<User>(message: "user not create");
             }
         }
 
-        public Book? CreateBook(Book book)
+        public Result<Book> CreateBook(Book book)
         {
             using var transaction = context.Database.BeginTransaction();
 
@@ -65,12 +65,128 @@ namespace BookstoreManagementSystemLibrary.Database.EF
                 context.SaveChanges();
 
                 transaction.Commit();
-                return book;
+                return new Result<Book>(data: book);
             }
             catch (Exception)
             {
                 transaction.Rollback();
-                return null;
+                return new Result<Book>(message: "Fail to create the book");
+            }
+        }
+
+        public Result<User> FindUserByUsername(string username)
+        {
+            try
+            {
+                var findUser = context.Users.Where(u => u.Username == username);
+
+                if (!findUser.Any())
+                {
+                    return new Result<User>(message: "user not found");
+                }
+
+                return new Result<User>(data: findUser.FirstOrDefault());
+            }
+            catch (Exception)
+            {
+                return new Result<User>(message: "Fail to find the user");
+            }
+        }
+
+        public Result<Book> FindBook(string name)
+        {
+            try
+            {
+                var findBook = context.Books.Where(u => u.Title == name);
+
+                if (!findBook.Any())
+                {
+                    return new Result<Book>(message: "book not found");
+                }
+
+                return new Result<Book>(data: findBook.FirstOrDefault());
+            }
+            catch (Exception)
+            {
+                return new Result<Book>(message: "Fail to find the book");
+            }
+        }
+
+        public Result<List<Book>> GetAllBooks()
+        {
+            try
+            {
+                var findBook = context.Books;
+
+                if (!findBook.Any())
+                {
+                    return new Result<List<Book>>(message: "book not found");
+                }
+
+                return new Result<List<Book>>(data: findBook.ToList());
+            }
+            catch (Exception e)
+            {
+
+                return new Result<List<Book>>(message: "Fail to find the book");
+            }
+        }
+
+        public Result<Category> CreateCategory(Category category)
+        {
+            using var transaction = context.Database.BeginTransaction();
+
+            try
+            {
+                context.Categories.Add(category);
+                context.SaveChanges();
+
+                transaction.Commit();
+                return new Result<Category>(data: category);
+            }
+            catch (Exception)
+            {
+                transaction.Rollback();
+                return new Result<Category>(message: "Fail to create the category");
+            }
+        }
+
+        public Result<Category> FindCategory(string name)
+        {
+            try
+            {
+                var findCategory = context.Categories.Where(u => u.CategoryName == name);
+
+                if (!findCategory.Any())
+                {
+                    return new Result<Category>(message: "Category not found");
+                }
+
+                return new Result<Category>(data: findCategory.FirstOrDefault());
+            }
+            catch (Exception)
+            {
+                return new Result<Category>(message: "Fail to find the Category");
+            }
+        }
+
+        public Result<List<Category>> GetAllCategories()
+        {
+            try
+            {
+                var findCategory = context.Categories;
+
+                if (!findCategory.Any())
+                {
+                    return new Result<List<Category>>(message: "Category not found");
+                }
+
+                return new Result<List<Category>>(data: findCategory.ToList());
+            }
+            catch (Exception e)
+            {
+
+                return new Result<List<Category>>(message: "Fail to find the Category");
             }
         }
 

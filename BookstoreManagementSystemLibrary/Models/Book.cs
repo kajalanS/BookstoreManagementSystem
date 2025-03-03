@@ -86,6 +86,11 @@ namespace BookstoreManagementSystemLibrary.Models
         public required string? Language { get; set; }
 
         /// <summary>
+        /// Gets or sets the image of the book.
+        /// </summary>
+        public required byte[]? Image { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether the book is deleted.
         /// </summary>
         public required bool? IsDeleted { get; set; } = false;

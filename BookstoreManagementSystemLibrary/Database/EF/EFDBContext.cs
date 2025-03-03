@@ -1,11 +1,14 @@
 ﻿using BookstoreManagementSystemLibrary.Database.EF.Enum;
+using BookstoreManagementSystemLibrary.Helpers;
 using BookstoreManagementSystemLibrary.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 
 namespace BookstoreManagementSystemLibrary.Database.EF
 {
-    public class EFDBContext : DbContext
+    public partial class EFDBContext : DbContext
     {
+
         #region Property
 
         protected string connectionString = "";
@@ -43,7 +46,12 @@ namespace BookstoreManagementSystemLibrary.Database.EF
             {
                 if (connectionType == EFConnectionType.Mysql)
                 {
-                    optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+                    var serverVersion = new MySqlServerVersion(new Version(8, 0, 41));
+                    Console.WriteLine(serverVersion.ToString());
+                    Console.WriteLine(connectionString);
+                    Console.WriteLine(connectionType);
+                    optionsBuilder.UseMySql(connectionString, serverVersion);
+                    //optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
                 }
                 else if (connectionType == EFConnectionType.MSql)
                 {
@@ -57,6 +65,10 @@ namespace BookstoreManagementSystemLibrary.Database.EF
             base.OnConfiguring(optionsBuilder);
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+        }
 
         #endregion
 

@@ -11,7 +11,7 @@ namespace BookstoreManagementSystemLibrary.Helpers
         /// <param name="password">The password to hash.</param>
         /// <param name="salt">The Salt to use for hashing.</param>
         /// <returns>A Base64 string representing the hashed value.</returns>
-        public static string GetHash(string password, string salt)
+        public static string GetHash(this string password, string salt)
         {
             byte[] unhashedBytes = Encoding.Unicode.GetBytes(string.Concat(salt, password));
             byte[] hashedBytes = SHA256.HashData(unhashedBytes);
@@ -25,7 +25,7 @@ namespace BookstoreManagementSystemLibrary.Helpers
         /// <param name="base64Hash">The stored Base64 hash to compare against.</param>
         /// <param name="salt">The Salt that was used to generate the stored hash.</param>
         /// <returns>True if the attempted password produces the same hash; otherwise, false.</returns>
-        public static bool CompareHash(string attemptedHash, string base64Hash, string salt)
+        public static bool CompareHash(this string attemptedHash, string base64Hash, string salt)
         {
             string base64AttemptedHash = GetHash(attemptedHash, salt);
             return base64Hash == base64AttemptedHash;
