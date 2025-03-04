@@ -398,3 +398,5 @@ FodyWeavers.xsd
 *.sln.iml
 App.config
 *.config
+BookstoreManagementSystemUI/App.config
+BookstoreManagementSystemLibrary/App.config
