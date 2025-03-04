@@ -19,7 +19,8 @@ namespace BookstoreManagementSystemUI
 
         private void frmLogin_Load(object sender, EventArgs e)
         {
-            TriggerLogin();
+            /// NOTE: load with out login - DEV ONLY
+            //TriggerLogin();
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
@@ -42,7 +43,7 @@ namespace BookstoreManagementSystemUI
                     MaterialMessageBox.Show(findUser.message, "Login", false, FlexibleMaterialForm.ButtonsPosition.Center);
                     return;
                 }
-                
+
                 if (!password.CompareHash(findUser.data.PasswordHash!, salt))
                 {
                     MaterialMessageBox.Show("Login Failed!", "Login", false, FlexibleMaterialForm.ButtonsPosition.Center);
@@ -65,7 +66,14 @@ namespace BookstoreManagementSystemUI
 
         private void lnkResetPassword_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
+            var newFormReset = new frmPasswordReset();
+            newFormReset.ShowDialog();
+        }
 
+        private void lnkCreateNewUser_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            var newUserForm = new frmCreateCustomer();
+            newUserForm.ShowDialog();
         }
     }
 }

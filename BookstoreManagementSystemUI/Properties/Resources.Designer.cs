@@ -73,6 +73,16 @@ namespace BookstoreManagementSystemUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap BookHaven___Book_Store_Logo {
+            get {
+                object obj = ResourceManager.GetObject("BookHaven - Book Store Logo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap bookList {
             get {
                 object obj = ResourceManager.GetObject("bookList", resourceCulture);
@@ -96,6 +106,26 @@ namespace BookstoreManagementSystemUI.Properties {
         internal static System.Drawing.Bitmap delete_bin_line {
             get {
                 object obj = ResourceManager.GetObject("delete-bin-line", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap email {
+            get {
+                object obj = ResourceManager.GetObject("email", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Meebon_Book_Store_Logo {
+            get {
+                object obj = ResourceManager.GetObject("Meebon Book Store Logo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

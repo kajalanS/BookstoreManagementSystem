@@ -15,6 +15,7 @@ namespace BookstoreManagementSystemLibrary.Database.Core
     {
         Result<User> CreateUser(User user);
         Result<User> FindUserByUsername(string username);
+        Task<Result<User>> ResetPasswordAsync(string email, string salt);
     }
     public interface IBookRepo
     {

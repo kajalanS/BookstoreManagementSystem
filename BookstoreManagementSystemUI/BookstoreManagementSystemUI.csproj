@@ -6,7 +6,12 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+    <ApplicationIcon>BookHaven-Logo-zoomed.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="BookHaven-Logo-zoomed.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="MaterialSkin.2" Version="2.3.1" />

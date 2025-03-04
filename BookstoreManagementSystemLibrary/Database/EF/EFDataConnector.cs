@@ -1,7 +1,9 @@
 ﻿
 using BookstoreManagementSystemLibrary.Database.Core;
 using BookstoreManagementSystemLibrary.Database.EF.Enum;
+using BookstoreManagementSystemLibrary.Helpers;
 using BookstoreManagementSystemLibrary.Models;
+using BookstoreManagementSystemLibrary.Services;
 
 namespace BookstoreManagementSystemLibrary.Database.EF
 {
@@ -187,6 +189,52 @@ namespace BookstoreManagementSystemLibrary.Database.EF
             {
 
                 return new Result<List<Category>>(message: "Fail to find the Category");
+            }
+        }
+
+        public async Task<Result<User>> ResetPasswordAsync(string email, string salt)
+        {
+            try
+            {
+                var findUser = context.Users.Where(u => u.Email == email);
+                var user = findUser.FirstOrDefault();
+
+                if (user == null || user.Email == null)
+                {
+                    return new Result<User>(message: "user not found");
+                }
+
+
+                //var newPassword = PasswordGenerator.GenerateRandomPassword(10);
+                var newPassword = 10.GenerateRandomPassword();
+
+                Dictionary<EmailTemplatePlaceHolder, string> dataMapper = new Dictionary<EmailTemplatePlaceHolder, string>
+                {
+                    {EmailTemplatePlaceHolder.Username,user.Username! },
+                    {EmailTemplatePlaceHolder.Password,newPassword },
+                };
+
+                //await Task.Run(async () =>
+                //{
+                //    await user.Email.SendHtmlEmailAsync("Password Reset", EmailTemplateType.PasswordReset, dataMapper);
+                //});
+
+                Thread thread = new Thread(() =>
+                {
+                    Task task = user.Email.SendHtmlEmailAsync("Password Reset", EmailTemplateType.PasswordReset, dataMapper);
+                });
+
+                thread.Start();
+
+
+                user.PasswordHash = newPassword.GetHash(salt);
+
+
+                return new Result<User>(data: user);
+            }
+            catch (Exception)
+            {
+                return new Result<User>(message: "Fail to find the user");
             }
         }
 

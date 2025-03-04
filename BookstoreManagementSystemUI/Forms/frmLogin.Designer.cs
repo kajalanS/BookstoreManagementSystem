@@ -30,17 +30,18 @@
         {
             btnLogin = new MaterialSkin.Controls.MaterialButton();
             materialCard1 = new MaterialSkin.Controls.MaterialCard();
-            label1 = new Label();
+            pictureBox1 = new PictureBox();
             txtPassword = new MaterialSkin.Controls.MaterialMaskedTextBox();
             txtUsername = new MaterialSkin.Controls.MaterialMaskedTextBox();
             lnkCreateNewUser = new LinkLabel();
             lnkResetPassword = new LinkLabel();
             materialCard1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // btnLogin
             // 
-            btnLogin.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            btnLogin.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             btnLogin.AutoSize = false;
             btnLogin.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             btnLogin.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
@@ -48,12 +49,12 @@
             btnLogin.DialogResult = DialogResult.OK;
             btnLogin.HighEmphasis = true;
             btnLogin.Icon = null;
-            btnLogin.Location = new Point(21, 335);
+            btnLogin.Location = new Point(21, 643);
             btnLogin.Margin = new Padding(5, 6, 5, 6);
             btnLogin.MouseState = MaterialSkin.MouseState.HOVER;
             btnLogin.Name = "btnLogin";
             btnLogin.NoAccentTextColor = Color.Empty;
-            btnLogin.Size = new Size(524, 36);
+            btnLogin.Size = new Size(501, 36);
             btnLogin.TabIndex = 0;
             btnLogin.Text = "Login";
             btnLogin.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
@@ -63,9 +64,9 @@
             // 
             // materialCard1
             // 
-            materialCard1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            materialCard1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             materialCard1.BackColor = Color.FromArgb(255, 255, 255);
-            materialCard1.Controls.Add(label1);
+            materialCard1.Controls.Add(pictureBox1);
             materialCard1.Controls.Add(txtPassword);
             materialCard1.Controls.Add(txtUsername);
             materialCard1.Controls.Add(btnLogin);
@@ -76,25 +77,23 @@
             materialCard1.MouseState = MaterialSkin.MouseState.HOVER;
             materialCard1.Name = "materialCard1";
             materialCard1.Padding = new Padding(18, 15, 18, 15);
-            materialCard1.Size = new Size(566, 402);
+            materialCard1.Size = new Size(543, 710);
             materialCard1.TabIndex = 1;
             // 
-            // label1
+            // pictureBox1
             // 
-            label1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            label1.Font = new Font("Fira Code", 25.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.ForeColor = Color.FromArgb(125, 82, 96);
-            label1.Location = new Point(21, 18);
-            label1.Name = "label1";
-            label1.Size = new Size(524, 203);
-            label1.TabIndex = 4;
-            label1.Text = "Bookstore Management System";
-            label1.TextAlign = ContentAlignment.MiddleCenter;
+            pictureBox1.Image = Properties.Resources.BookHaven___Book_Store_Logo;
+            pictureBox1.Location = new Point(21, 18);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(500, 500);
+            pictureBox1.SizeMode = PictureBoxSizeMode.AutoSize;
+            pictureBox1.TabIndex = 3;
+            pictureBox1.TabStop = false;
             // 
             // txtPassword
             // 
             txtPassword.AllowPromptAsInput = true;
-            txtPassword.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            txtPassword.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             txtPassword.AnimateReadOnly = false;
             txtPassword.AsciiOnly = false;
             txtPassword.BackgroundImageLayout = ImageLayout.None;
@@ -107,7 +106,7 @@
             txtPassword.Hint = "Password";
             txtPassword.InsertKeyMode = InsertKeyMode.Default;
             txtPassword.LeadingIcon = null;
-            txtPassword.Location = new Point(21, 278);
+            txtPassword.Location = new Point(21, 586);
             txtPassword.Mask = "";
             txtPassword.MaxLength = 32767;
             txtPassword.MouseState = MaterialSkin.MouseState.OUT;
@@ -124,7 +123,7 @@
             txtPassword.SelectionLength = 0;
             txtPassword.SelectionStart = 0;
             txtPassword.ShortcutsEnabled = true;
-            txtPassword.Size = new Size(524, 48);
+            txtPassword.Size = new Size(501, 48);
             txtPassword.SkipLiterals = true;
             txtPassword.TabIndex = 2;
             txtPassword.TabStop = false;
@@ -138,7 +137,7 @@
             // txtUsername
             // 
             txtUsername.AllowPromptAsInput = true;
-            txtUsername.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            txtUsername.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             txtUsername.AnimateReadOnly = false;
             txtUsername.AsciiOnly = false;
             txtUsername.BackgroundImageLayout = ImageLayout.None;
@@ -151,7 +150,7 @@
             txtUsername.Hint = "Username";
             txtUsername.InsertKeyMode = InsertKeyMode.Default;
             txtUsername.LeadingIcon = null;
-            txtUsername.Location = new Point(21, 224);
+            txtUsername.Location = new Point(21, 532);
             txtUsername.Mask = "";
             txtUsername.MaxLength = 32767;
             txtUsername.MouseState = MaterialSkin.MouseState.OUT;
@@ -168,7 +167,7 @@
             txtUsername.SelectionLength = 0;
             txtUsername.SelectionStart = 0;
             txtUsername.ShortcutsEnabled = true;
-            txtUsername.Size = new Size(524, 48);
+            txtUsername.Size = new Size(501, 48);
             txtUsername.SkipLiterals = true;
             txtUsername.TabIndex = 1;
             txtUsername.TabStop = false;
@@ -184,19 +183,20 @@
             lnkCreateNewUser.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             lnkCreateNewUser.AutoSize = true;
             lnkCreateNewUser.LinkColor = Color.FromArgb(79, 55, 138);
-            lnkCreateNewUser.Location = new Point(21, 499);
+            lnkCreateNewUser.Location = new Point(21, 807);
             lnkCreateNewUser.Name = "lnkCreateNewUser";
             lnkCreateNewUser.Size = new Size(143, 17);
             lnkCreateNewUser.TabIndex = 2;
             lnkCreateNewUser.TabStop = true;
             lnkCreateNewUser.Text = "Create New User";
+            lnkCreateNewUser.LinkClicked += lnkCreateNewUser_LinkClicked;
             // 
             // lnkResetPassword
             // 
             lnkResetPassword.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             lnkResetPassword.AutoSize = true;
             lnkResetPassword.LinkColor = Color.FromArgb(79, 55, 138);
-            lnkResetPassword.Location = new Point(437, 499);
+            lnkResetPassword.Location = new Point(437, 807);
             lnkResetPassword.Name = "lnkResetPassword";
             lnkResetPassword.Size = new Size(134, 17);
             lnkResetPassword.TabIndex = 3;
@@ -208,7 +208,7 @@
             // 
             AutoScaleDimensions = new SizeF(9F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(609, 547);
+            ClientSize = new Size(586, 855);
             Controls.Add(lnkResetPassword);
             Controls.Add(lnkCreateNewUser);
             Controls.Add(materialCard1);
@@ -222,6 +222,8 @@
             Text = "Bookstore Management System";
             Load += frmLogin_Load;
             materialCard1.ResumeLayout(false);
+            materialCard1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -232,8 +234,8 @@
         private MaterialSkin.Controls.MaterialCard materialCard1;
         private MaterialSkin.Controls.MaterialMaskedTextBox txtPassword;
         private MaterialSkin.Controls.MaterialMaskedTextBox txtUsername;
-        private Label label1;
         private LinkLabel lnkCreateNewUser;
         private LinkLabel lnkResetPassword;
+        private PictureBox pictureBox1;
     }
 }
