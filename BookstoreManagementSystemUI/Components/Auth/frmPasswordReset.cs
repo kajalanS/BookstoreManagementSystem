@@ -31,17 +31,14 @@ namespace BookstoreManagementSystemUI.Components.Auth
             {
                 var resetEmailResponse = await process.ResetPasswordAsync(txtEmail.Text, salt);
 
-                if (resetEmailResponse.data == null)
+                if (resetEmailResponse.Data == null)
                 {
-                    MaterialMessageBox.Show(resetEmailResponse.message, "Password Reset", false, FlexibleMaterialForm.ButtonsPosition.Center);
+                    MaterialMessageBox.Show(resetEmailResponse.Message, "Password Reset", false, FlexibleMaterialForm.ButtonsPosition.Center);
                     return;
                 }
 
                 CloseForm();
-
             });
-
-
         }
 
         private void CloseForm()

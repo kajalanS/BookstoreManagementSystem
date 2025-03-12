@@ -20,7 +20,7 @@ namespace BookstoreManagementSystemUI
         private void frmLogin_Load(object sender, EventArgs e)
         {
             /// NOTE: load with out login - DEV ONLY
-            //TriggerLogin();
+            TriggerLogin();
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
@@ -38,17 +38,21 @@ namespace BookstoreManagementSystemUI
             GlobalConfig.Process((process, salt) =>
             {
                 var findUser = process.FindUserByUsername(username);
-                if (findUser.data == null)
+                if (findUser.Data == null)
                 {
-                    MaterialMessageBox.Show(findUser.message, "Login", false, FlexibleMaterialForm.ButtonsPosition.Center);
+                    MaterialMessageBox.Show(findUser.Message, "Login", false, FlexibleMaterialForm.ButtonsPosition.Center);
                     return;
                 }
 
-                if (!password.CompareHash(findUser.data.PasswordHash!, salt))
+                if (!password.CompareHash(findUser.Data.PasswordHash!, salt))
                 {
                     MaterialMessageBox.Show("Login Failed!", "Login", false, FlexibleMaterialForm.ButtonsPosition.Center);
                     return;
                 }
+
+                process.TriggerLogin(username);
+
+                GlobalConfig.SaveLoginUser(findUser.Data);
 
                 TriggerLogin();
             });

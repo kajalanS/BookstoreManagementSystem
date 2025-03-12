@@ -19,7 +19,7 @@ namespace BookstoreManagementSystemLibrary.Models
             Description = description;
         }
 
-        public AuditLog(int? logId, int userId, string? action, DateTime? timestamp, string? description, User? user) : this(action, timestamp, description)
+        public AuditLog(int logId, int userId, string? action, DateTime? timestamp, string? description, User? user) : this(action, timestamp, description)
         {
             LogId = logId;
             UserId = userId;
@@ -30,12 +30,12 @@ namespace BookstoreManagementSystemLibrary.Models
         /// Gets or sets the unique identifier for the audit log entry.
         /// </summary>
         [Key]
-        public int? LogId { get; set; }
+        public int LogId { get; set; }
 
         /// <summary>
         /// Gets or sets the foreign key to the user who performed the action.
         /// </summary>
-        public int UserId { get; set; }
+        public required int UserId { get; set; }
 
         /// <summary>
         /// Gets or sets the action performed.

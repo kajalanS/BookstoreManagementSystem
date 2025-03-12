@@ -10,9 +10,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MaterialSkin.Controls;
-using BookstoreManagementSystemUI.Extentions;
 using static BookstoreManagementSystemUI.Forms.frmDashboard;
 using BookstoreManagementSystemUI.Forms;
+using BookstoreManagementSystemLibrary.Database.Core;
 
 namespace BookstoreManagementSystemUI.Components.Pos
 {
@@ -120,6 +120,7 @@ namespace BookstoreManagementSystemUI.Components.Pos
         {
             if (flpCheckoutShelf != null && OrderDetailList != null)
             {
+                decimal total = 0;
                 flpCheckoutShelf.Controls.Clear();
                 foreach (var checkout in OrderDetailList)
                 {
@@ -131,8 +132,17 @@ namespace BookstoreManagementSystemUI.Components.Pos
                     newBookCard.SetupOrderDetailInfo(checkout.Value);
                     newBookCard.DeleteOrderDetailDel += OnDeleteOrderDetail;
                     flpCheckoutShelf.Controls.Add(newBookCard);
+
+                    total += checkout.Value.CalculatePrice();
                 }
+
+                lblTotalOrderList.Text = $"{Math.Round(total, 2)} LKR";
             }
+
+            bool disableButton = OrderDetailList != null && OrderDetailList.Count > 0;
+
+            btnCheckout.Enabled = disableButton;
+            btnPreBooking.Enabled = disableButton;
         }
 
         private void OnDeleteOrderDetail(OrderDetail orderDetail)
@@ -149,12 +159,12 @@ namespace BookstoreManagementSystemUI.Components.Pos
         {
             if (flpBookShelf != null && OrderDetailList != null)
             {
-                if (OrderDetailList.TryGetValue(book, out OrderDetail orderDetail))
+                if (OrderDetailList.TryGetValue(book, out var orderDetail))
                 {
                     if (orderDetail != null)
                     {
-                        var quantity = orderDetail.Quantity ?? 0;
-                        var maxQuantity = orderDetail?.Book?.StockQuantity ?? 0;
+                        var quantity = orderDetail.Quantity;
+                        var maxQuantity = orderDetail.Book?.StockQuantity ?? 0;
 
                         orderDetail.Quantity = Math.Clamp(quantity + 1, 0, maxQuantity);
                         orderDetail.UnitPrice = orderDetail.CalculatePrice();
@@ -179,6 +189,14 @@ namespace BookstoreManagementSystemUI.Components.Pos
 
         private void OnToggleCategory(bool toggle, Category category)
         {
+            DeselectAllCategory(category);
+
+            selectedCategory = toggle ? category : null;
+            ArrangeBookData();
+        }
+
+        private void DeselectAllCategory(Category category)
+        {
             if (flpCategoryShelf != null)
             {
                 foreach (var item in flpCategoryShelf.Controls)
@@ -192,9 +210,57 @@ namespace BookstoreManagementSystemUI.Components.Pos
                     }
                 }
             }
+        }
 
-            selectedCategory = toggle ? category : null;
-            ArrangeBookData();
+        private void btnCreateBook_Click(object sender, EventArgs e)
+        {
+            var frmBook = new frmCreateBook();
+            frmBook.SetCategory(CategoryList);
+            frmBook.ShowDialog();
+        }
+
+        private void btnFindText_Click(object sender, EventArgs e)
+        {
+            if (selectedCategory != null)
+            {
+                DeselectAllCategory(selectedCategory);
+            }
+
+            if (string.IsNullOrEmpty(txtFinText.Text))
+            {
+                MaterialMessageBox.Show("Find text must not be empty!", "Find", false, FlexibleMaterialForm.ButtonsPosition.Center);
+                return;
+            }
+
+            GlobalConfig.Process(FindBookFromCategory);
+        }
+
+        private void FindBookFromCategory(IDataConnector connector, string arg2)
+        {
+            var books = connector.FindBook(txtFinText.Text);
+            if (books.Data == null)
+            {
+                MaterialMessageBox.Show(books.Message, "Find", false, FlexibleMaterialForm.ButtonsPosition.Center);
+                return;
+            }
+
+            LoadBooks(books?.Data);
+
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnCheckout_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnPreBooking_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

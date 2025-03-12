@@ -1,5 +1,5 @@
-﻿using BookstoreManagementSystemLibrary.Models;
-using BookstoreManagementSystemUI.Extentions;
+﻿using BookstoreManagementSystemLibrary.Database.Core;
+using BookstoreManagementSystemLibrary.Models;
 using BookstoreManagementSystemUI.Helpers;
 using System;
 using System.Collections.Generic;
@@ -36,7 +36,7 @@ namespace BookstoreManagementSystemUI.Components
         public void SetupOrderDetailInfo(OrderDetail orderDetail)
         {
             lblName.Text = orderDetail?.Book?.Title;
-            lblQuantity.Text = orderDetail?.Quantity?.ToString();
+            lblQuantity.Text = orderDetail?.Quantity.ToString();
             lblPrice.Text = $"{Math.Round(orderDetail.CalculatePrice(), 2)} LKR";
 
             this.SelectOrderDetail = orderDetail;

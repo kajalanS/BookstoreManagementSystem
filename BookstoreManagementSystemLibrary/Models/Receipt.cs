@@ -13,14 +13,14 @@ namespace BookstoreManagementSystemLibrary.Models
         {
         }
 
-        public Receipt(DateTime? issueDate, decimal? totalAmount, PaymentMethod? paymentMethod)
+        public Receipt(DateTime issueDate, decimal totalAmount, PaymentMethod paymentMethod)
         {
             IssueDate = issueDate;
             TotalAmount = totalAmount;
             PaymentMethod = paymentMethod;
         }
 
-        public Receipt(int? receiptId, int? orderId, DateTime? issueDate, decimal? totalAmount, PaymentMethod? paymentMethod, Order? order) : this(issueDate, totalAmount, paymentMethod)
+        public Receipt(int receiptId, int orderId, DateTime issueDate, decimal totalAmount, PaymentMethod paymentMethod, Order order) : this(issueDate, totalAmount, paymentMethod)
         {
             ReceiptId = receiptId;
             OrderId = orderId;
@@ -31,27 +31,27 @@ namespace BookstoreManagementSystemLibrary.Models
         /// Gets or sets the unique identifier for the receipt.
         /// </summary>
         [Key]
-        public required int? ReceiptId { get; set; }
+        public int ReceiptId { get; set; }
 
         /// <summary>
         /// Gets or sets the foreign key to the order.
         /// </summary>
-        public required int? OrderId { get; set; }
+        public required int OrderId { get; set; }
 
         /// <summary>
         /// Gets or sets the issue date of the receipt.
         /// </summary>
-        public required DateTime? IssueDate { get; set; }
+        public required DateTime IssueDate { get; set; }
 
         /// <summary>
         /// Gets or sets the total amount of the receipt.
         /// </summary>
-        public required decimal? TotalAmount { get; set; }
+        public required decimal TotalAmount { get; set; }
 
         /// <summary>
         /// Gets or sets the payment method used for the receipt.
         /// </summary>
-        public required PaymentMethod? PaymentMethod { get; set; }
+        public required PaymentMethod PaymentMethod { get; set; }
 
         /// <summary>
         /// Navigation property to the associated order.

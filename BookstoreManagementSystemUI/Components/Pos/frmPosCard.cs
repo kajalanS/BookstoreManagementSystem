@@ -37,7 +37,7 @@ namespace BookstoreManagementSystemUI
             }
 
             txtTitle.Text = $"{book.Title} ({book.StockQuantity ?? 0})";
-            txtPrice.Text = $"{Math.Round(book.Price ?? 0, 2)} LKR";
+            txtPrice.Text = $"{Math.Round(book.Price, 2)} LKR";
 
             this.SelectBook = book;
         }

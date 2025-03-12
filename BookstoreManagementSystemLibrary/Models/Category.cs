@@ -1,24 +1,27 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace BookstoreManagementSystemLibrary.Models
 {
     /// <summary>
     /// Represents a category for books.
     /// </summary>
+
+    [Index(nameof(CategoryName), IsUnique = true)]
     public class Category
     {
         public Category()
         {
         }
 
-        public Category(string? categoryName, string? description, bool? isDeleted = false)
+        public Category(string categoryName, string? description, bool isDeleted = false)
         {
             CategoryName = categoryName;
             Description = description;
             IsDeleted = isDeleted;
         }
 
-        public Category(int categoryId, string? categoryName, string? description, bool? isDeleted, ICollection<Book>? books) : this(categoryName, description, isDeleted)
+        public Category(int categoryId, string categoryName, string? description, bool isDeleted, ICollection<Book>? books) : this(categoryName, description, isDeleted)
         {
             CategoryId = categoryId;
             Books = books;
@@ -33,7 +36,7 @@ namespace BookstoreManagementSystemLibrary.Models
         /// <summary>
         /// Gets or sets the name of the category.
         /// </summary>
-        public required string? CategoryName { get; set; }
+        public required string CategoryName { get; set; }
 
         /// <summary>
         /// Gets or sets the description of the category.
@@ -43,7 +46,7 @@ namespace BookstoreManagementSystemLibrary.Models
         /// <summary>
         /// Gets or sets a value indicating whether the category is deleted.
         /// </summary>
-        public required bool? IsDeleted { get; set; } = false;
+        public bool IsDeleted { get; set; } = false;
 
         /// <summary>
         /// Navigation property for the books in this category.

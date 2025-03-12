@@ -12,22 +12,22 @@ namespace BookstoreManagementSystemLibrary.Models
         {
         }
 
-        public OrderDetail(int? quantity, decimal? unitPrice, decimal? discount, bool? isDeleted = false)
+        public OrderDetail(int quantity, decimal unitPrice, decimal? discount, bool isDeleted = false)
         {
             Quantity = quantity;
             UnitPrice = unitPrice;
             Discount = discount;
             IsDeleted = isDeleted;
         }
-        public OrderDetail(int? quantity, decimal? unitPrice, decimal? discount = 0, bool? isDeleted = false, Order? order = default, Book? book = default) : this(quantity, unitPrice, discount, isDeleted)
+        public OrderDetail(int quantity, decimal unitPrice, Order order, Book book, decimal? discount = 0, bool isDeleted = false) : this(quantity, unitPrice, discount, isDeleted)
         {
             Order = order;
             Book = book;
-            OrderId = order?.OrderId;
-            BookId = book?.BookId;
+            OrderId = order.OrderId;
+            BookId = book.BookId;
         }
 
-        public OrderDetail(int? orderDetailId, int? orderId, int? bookId, int? quantity, decimal? unitPrice, decimal? discount, bool? isDeleted, Order? order, Book? book) : this(quantity, unitPrice, discount, isDeleted)
+        public OrderDetail(int orderDetailId, int orderId, int bookId, int quantity, decimal unitPrice, decimal? discount, bool isDeleted, Order? order, Book? book) : this(quantity, unitPrice, discount, isDeleted)
         {
             OrderDetailId = orderDetailId;
             OrderId = orderId;
@@ -40,37 +40,37 @@ namespace BookstoreManagementSystemLibrary.Models
         /// Gets or sets the unique identifier for the order detail.
         /// </summary>
         [Key]
-        public int? OrderDetailId { get; set; }
+        public int OrderDetailId { get; set; }
 
         /// <summary>
         /// Gets or sets the foreign key to the order.
         /// </summary>
-        public int? OrderId { get; set; }
+        public int OrderId { get; set; }
 
         /// <summary>
         /// Gets or sets the foreign key to the book.
         /// </summary>
-        public int? BookId { get; set; }
+        public required int BookId { get; set; }
 
         /// <summary>
         /// Gets or sets the quantity of the book ordered.
         /// </summary>
-        public required int? Quantity { get; set; }
+        public required int Quantity { get; set; }
 
         /// <summary>
         /// Gets or sets the unit price of the book.
         /// </summary>
-        public required decimal? UnitPrice { get; set; }
+        public required decimal UnitPrice { get; set; }
 
         /// <summary>
         /// Gets or sets the discount applied to the book.
         /// </summary>
-        public required decimal? Discount { get; set; }
+        public decimal? Discount { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the record is deleted.
         /// </summary>
-        public required bool? IsDeleted { get; set; }
+        public bool IsDeleted { get; set; } = false;
 
         /// <summary>
         /// Navigation property to the associated order.

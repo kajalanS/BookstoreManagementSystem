@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookstoreManagementSystemLibrary.Migrations
 {
     [DbContext(typeof(EFDBContext))]
-    [Migration("20250303191314_Init")]
+    [Migration("20250308103359_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -42,11 +42,11 @@ namespace BookstoreManagementSystemLibrary.Migrations
 
             modelBuilder.Entity("BookstoreManagementSystemLibrary.Models.AuditLog", b =>
                 {
-                    b.Property<int?>("LogId")
+                    b.Property<int>("LogId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int?>("LogId"));
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("LogId"));
 
                     b.Property<string>("Action")
                         .HasColumnType("longtext");
@@ -69,16 +69,16 @@ namespace BookstoreManagementSystemLibrary.Migrations
 
             modelBuilder.Entity("BookstoreManagementSystemLibrary.Models.Book", b =>
                 {
-                    b.Property<int?>("BookId")
+                    b.Property<int>("BookId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int?>("BookId"));
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("BookId"));
 
                     b.Property<string>("Author")
                         .HasColumnType("longtext");
 
-                    b.Property<int?>("CategoryId")
+                    b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
                     b.Property<string>("ISBN")
@@ -91,9 +91,10 @@ namespace BookstoreManagementSystemLibrary.Migrations
                         .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Language")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<decimal?>("Price")
+                    b.Property<decimal>("Price")
                         .HasColumnType("decimal(65,30)");
 
                     b.Property<int?>("PublicationYear")
@@ -106,11 +107,15 @@ namespace BookstoreManagementSystemLibrary.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
-                        .HasColumnType("longtext");
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
 
                     b.HasKey("BookId");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("Title")
+                        .IsUnique();
 
                     b.ToTable("Books");
                 });
@@ -124,7 +129,8 @@ namespace BookstoreManagementSystemLibrary.Migrations
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("CategoryId"));
 
                     b.Property<string>("CategoryName")
-                        .HasColumnType("longtext");
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("Description")
                         .HasColumnType("longtext");
@@ -134,73 +140,84 @@ namespace BookstoreManagementSystemLibrary.Migrations
 
                     b.HasKey("CategoryId");
 
+                    b.HasIndex("CategoryName")
+                        .IsUnique();
+
                     b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("BookstoreManagementSystemLibrary.Models.Customer", b =>
                 {
-                    b.Property<int?>("CustomerId")
+                    b.Property<int>("CustomerId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int?>("CustomerId"));
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("CustomerId"));
 
                     b.Property<string>("Address")
                         .HasColumnType("longtext");
 
                     b.Property<string>("Email")
-                        .HasColumnType("longtext");
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
 
                     b.Property<bool?>("IsDeleted")
                         .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("PhoneNumber")
-                        .HasColumnType("longtext");
+                        .HasColumnType("varchar(255)");
 
                     b.HasKey("CustomerId");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.HasIndex("PhoneNumber")
+                        .IsUnique();
 
                     b.ToTable("Customers");
                 });
 
             modelBuilder.Entity("BookstoreManagementSystemLibrary.Models.Order", b =>
                 {
-                    b.Property<int?>("OrderId")
+                    b.Property<int>("OrderId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int?>("OrderId"));
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("OrderId"));
 
-                    b.Property<int?>("CustomerId")
+                    b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("DeliveryMethod")
+                    b.Property<int>("DeliveryMethod")
                         .HasColumnType("int");
 
                     b.Property<bool?>("IsDeleted")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<DateTime?>("OrderDate")
+                    b.Property<DateTime>("OrderDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int?>("OrderStatus")
+                    b.Property<int>("OrderStatus")
                         .HasColumnType("int");
 
-                    b.Property<int?>("OrderType")
+                    b.Property<int>("OrderType")
                         .HasColumnType("int");
 
-                    b.Property<int?>("PaymentMethod")
+                    b.Property<int>("PaymentMethod")
                         .HasColumnType("int");
 
-                    b.Property<int?>("PaymentStatus")
+                    b.Property<int>("PaymentStatus")
                         .HasColumnType("int");
 
-                    b.Property<decimal?>("TotalAmount")
+                    b.Property<decimal>("TotalAmount")
                         .HasColumnType("decimal(65,30)");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("OrderId");
@@ -214,13 +231,13 @@ namespace BookstoreManagementSystemLibrary.Migrations
 
             modelBuilder.Entity("BookstoreManagementSystemLibrary.Models.OrderDetail", b =>
                 {
-                    b.Property<int?>("OrderDetailId")
+                    b.Property<int>("OrderDetailId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int?>("OrderDetailId"));
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("OrderDetailId"));
 
-                    b.Property<int?>("BookId")
+                    b.Property<int>("BookId")
                         .HasColumnType("int");
 
                     b.Property<decimal?>("Discount")
@@ -229,13 +246,13 @@ namespace BookstoreManagementSystemLibrary.Migrations
                     b.Property<bool?>("IsDeleted")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<int?>("OrderId")
+                    b.Property<int>("OrderId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("Quantity")
+                    b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<decimal?>("UnitPrice")
+                    b.Property<decimal>("UnitPrice")
                         .HasColumnType("decimal(65,30)");
 
                     b.HasKey("OrderDetailId");
@@ -249,22 +266,22 @@ namespace BookstoreManagementSystemLibrary.Migrations
 
             modelBuilder.Entity("BookstoreManagementSystemLibrary.Models.Receipt", b =>
                 {
-                    b.Property<int?>("ReceiptId")
+                    b.Property<int>("ReceiptId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int?>("ReceiptId"));
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("ReceiptId"));
 
-                    b.Property<DateTime?>("IssueDate")
+                    b.Property<DateTime>("IssueDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int?>("OrderId")
+                    b.Property<int>("OrderId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("PaymentMethod")
+                    b.Property<int>("PaymentMethod")
                         .HasColumnType("int");
 
-                    b.Property<decimal?>("TotalAmount")
+                    b.Property<decimal>("TotalAmount")
                         .HasColumnType("decimal(65,30)");
 
                     b.HasKey("ReceiptId");
@@ -277,28 +294,37 @@ namespace BookstoreManagementSystemLibrary.Migrations
 
             modelBuilder.Entity("BookstoreManagementSystemLibrary.Models.Supplier", b =>
                 {
-                    b.Property<int?>("SupplierId")
+                    b.Property<int>("SupplierId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int?>("SupplierId"));
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("SupplierId"));
 
                     b.Property<string>("Address")
                         .HasColumnType("longtext");
 
                     b.Property<string>("Email")
-                        .HasColumnType("longtext");
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
 
                     b.Property<bool?>("IsDeleted")
                         .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("PhoneNumber")
-                        .HasColumnType("longtext");
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
 
                     b.HasKey("SupplierId");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.HasIndex("PhoneNumber")
+                        .IsUnique();
 
                     b.ToTable("Suppliers");
                 });
@@ -327,14 +353,15 @@ namespace BookstoreManagementSystemLibrary.Migrations
 
             modelBuilder.Entity("BookstoreManagementSystemLibrary.Models.User", b =>
                 {
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int?>("UserId"));
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("UserId"));
 
                     b.Property<string>("Email")
-                        .HasColumnType("longtext");
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
 
                     b.Property<bool?>("IsDeleted")
                         .HasColumnType("tinyint(1)");
@@ -343,18 +370,26 @@ namespace BookstoreManagementSystemLibrary.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("PasswordHash")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int?>("Role")
+                    b.Property<int>("Role")
                         .HasColumnType("int");
 
-                    b.Property<int?>("Status")
+                    b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.Property<string>("Username")
-                        .HasColumnType("longtext");
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
 
                     b.HasKey("UserId");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.HasIndex("Username")
+                        .IsUnique();
 
                     b.ToTable("Users");
                 });
@@ -389,7 +424,9 @@ namespace BookstoreManagementSystemLibrary.Migrations
                 {
                     b.HasOne("BookstoreManagementSystemLibrary.Models.Category", "Category")
                         .WithMany("Books")
-                        .HasForeignKey("CategoryId");
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Category");
                 });
@@ -398,11 +435,15 @@ namespace BookstoreManagementSystemLibrary.Migrations
                 {
                     b.HasOne("BookstoreManagementSystemLibrary.Models.Customer", "Customer")
                         .WithMany("Orders")
-                        .HasForeignKey("CustomerId");
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("BookstoreManagementSystemLibrary.Models.User", "User")
                         .WithMany("Orders")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Customer");
 
@@ -413,11 +454,15 @@ namespace BookstoreManagementSystemLibrary.Migrations
                 {
                     b.HasOne("BookstoreManagementSystemLibrary.Models.Book", "Book")
                         .WithMany("OrderDetails")
-                        .HasForeignKey("BookId");
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("BookstoreManagementSystemLibrary.Models.Order", "Order")
                         .WithMany("OrderDetails")
-                        .HasForeignKey("OrderId");
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Book");
 
@@ -428,7 +473,9 @@ namespace BookstoreManagementSystemLibrary.Migrations
                 {
                     b.HasOne("BookstoreManagementSystemLibrary.Models.Order", "Order")
                         .WithOne("Receipt")
-                        .HasForeignKey("BookstoreManagementSystemLibrary.Models.Receipt", "OrderId");
+                        .HasForeignKey("BookstoreManagementSystemLibrary.Models.Receipt", "OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Order");
                 });

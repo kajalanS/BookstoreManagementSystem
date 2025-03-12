@@ -1,17 +1,17 @@
 ﻿using BookstoreManagementSystemLibrary.Models;
 
-namespace BookstoreManagementSystemUI.Extentions
+namespace BookstoreManagementSystemLibrary.Database.Core
 {
-    public static class ModelExtention
+    public static class CalculateOrderPrice
     {
         public static decimal CalculatePrice(this OrderDetail? orderDetail)
         {
             decimal price = 0;
 
-            if (orderDetail != null && orderDetail.Quantity != null && orderDetail.UnitPrice != null)
+            if (orderDetail != null && orderDetail.Book != null && orderDetail.Discount != null)
             {
                 decimal unitPrice = orderDetail.Book?.Price ?? 0;
-                decimal quantity = orderDetail.Quantity ?? 0;
+                decimal quantity = orderDetail.Quantity;
                 decimal discount = orderDetail.Discount ?? 0;
 
                 price = unitPrice * quantity;
@@ -22,4 +22,5 @@ namespace BookstoreManagementSystemUI.Extentions
             return price;
         }
     }
+
 }

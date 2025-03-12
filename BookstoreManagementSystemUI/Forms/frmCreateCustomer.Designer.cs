@@ -33,22 +33,24 @@
             // 
             // frmCreateUserModel1
             // 
-            frmCreateUserModel1.Dock = DockStyle.Fill;
+            frmCreateUserModel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             frmCreateUserModel1.Font = new Font("Fira Code", 11.9999981F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            frmCreateUserModel1.Location = new Point(3, 64);
-            frmCreateUserModel1.Margin = new Padding(4);
+            frmCreateUserModel1.Location = new Point(8, 71);
+            frmCreateUserModel1.Margin = new Padding(5);
             frmCreateUserModel1.Name = "frmCreateUserModel1";
-            frmCreateUserModel1.Size = new Size(546, 383);
+            frmCreateUserModel1.Size = new Size(607, 554);
             frmCreateUserModel1.TabIndex = 0;
             // 
             // frmCreateCustomer
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(552, 450);
+            ClientSize = new Size(623, 634);
             Controls.Add(frmCreateUserModel1);
+            Margin = new Padding(3, 4, 3, 4);
             MaximizeBox = false;
             Name = "frmCreateCustomer";
+            Padding = new Padding(3, 85, 3, 4);
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Create New User";
             Load += frmCreateCustomer_Load;

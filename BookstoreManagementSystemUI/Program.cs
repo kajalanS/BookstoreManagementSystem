@@ -132,7 +132,7 @@ namespace BookstoreManagementSystemUI
             //    //};
             //    //process.CreateUser(adminUser);
 
-            //    process.ResetPassword("info.ksoftm@gmail.com");
+            //    //process.ResetPassword("info.ksoftm@gmail.com");
             //});
         }
     }

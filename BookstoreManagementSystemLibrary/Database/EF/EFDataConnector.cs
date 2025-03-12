@@ -4,6 +4,7 @@ using BookstoreManagementSystemLibrary.Database.EF.Enum;
 using BookstoreManagementSystemLibrary.Helpers;
 using BookstoreManagementSystemLibrary.Models;
 using BookstoreManagementSystemLibrary.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace BookstoreManagementSystemLibrary.Database.EF
 {
@@ -11,9 +12,11 @@ namespace BookstoreManagementSystemLibrary.Database.EF
     {
         #region Property
 
-        protected readonly EFDBContext context;
+        private readonly EFDBContext context;
         protected readonly EFConnectionType connectionType;
         protected readonly Dictionary<EFConnectionType, string> connectionStringList = [];
+
+        public EFDBContext Context { get => context; }
 
         #endregion
 
@@ -48,12 +51,12 @@ namespace BookstoreManagementSystemLibrary.Database.EF
                 context.SaveChanges();
 
                 transaction.Commit();
-                return new Result<User>(data: user);
+                return new Result<User>(Data: user);
             }
             catch (Exception)
             {
                 transaction.Rollback();
-                return new Result<User>(message: "user not create");
+                return new Result<User>(Message: "User not create");
             }
         }
 
@@ -67,12 +70,12 @@ namespace BookstoreManagementSystemLibrary.Database.EF
                 context.SaveChanges();
 
                 transaction.Commit();
-                return new Result<Book>(data: book);
+                return new Result<Book>(Data: book);
             }
             catch (Exception)
             {
                 transaction.Rollback();
-                return new Result<Book>(message: "Fail to create the book");
+                return new Result<Book>(Message: "Fail to create the book");
             }
         }
 
@@ -80,37 +83,42 @@ namespace BookstoreManagementSystemLibrary.Database.EF
         {
             try
             {
-                var findUser = context.Users.Where(u => u.Username == username);
+                var findUser = context.Users
+                    .Where(u => u.Username == username)
+                    .Where(x => x.IsDeleted == false);
 
                 if (!findUser.Any())
                 {
-                    return new Result<User>(message: "user not found");
+                    return new Result<User>(Message: "loginUser not found");
                 }
 
-                return new Result<User>(data: findUser.FirstOrDefault());
+                return new Result<User>(Data: findUser.FirstOrDefault());
             }
             catch (Exception)
             {
-                return new Result<User>(message: "Fail to find the user");
+                return new Result<User>(Message: "Fail to find the loginUser");
             }
         }
 
-        public Result<Book> FindBook(string name)
+        public Result<List<Book>> FindBook(string name)
         {
             try
             {
-                var findBook = context.Books.Where(u => u.Title == name);
+
+                var findBook = context.Books
+                    .Where(u => u.Title.Contains(name))
+                    .Where(x => x.IsDeleted == false);
 
                 if (!findBook.Any())
                 {
-                    return new Result<Book>(message: "book not found");
+                    return new Result<List<Book>>(Message: "book not found");
                 }
 
-                return new Result<Book>(data: findBook.FirstOrDefault());
+                return new Result<List<Book>>(Data: [.. findBook]);
             }
             catch (Exception)
             {
-                return new Result<Book>(message: "Fail to find the book");
+                return new Result<List<Book>>(Message: "Fail to find the book");
             }
         }
 
@@ -118,19 +126,20 @@ namespace BookstoreManagementSystemLibrary.Database.EF
         {
             try
             {
-                var findBook = context.Books;
+                var findBook = context.Books
+                    .Where(x => x.IsDeleted == false);
 
                 if (!findBook.Any())
                 {
-                    return new Result<List<Book>>(message: "book not found");
+                    return new Result<List<Book>>(Message: "book not found");
                 }
 
-                return new Result<List<Book>>(data: findBook.ToList());
+                return new Result<List<Book>>(Data: [.. findBook]);
             }
             catch (Exception e)
             {
 
-                return new Result<List<Book>>(message: "Fail to find the book");
+                return new Result<List<Book>>(Message: "Fail to find the book");
             }
         }
 
@@ -144,12 +153,12 @@ namespace BookstoreManagementSystemLibrary.Database.EF
                 context.SaveChanges();
 
                 transaction.Commit();
-                return new Result<Category>(data: category);
+                return new Result<Category>(Data: category);
             }
             catch (Exception)
             {
                 transaction.Rollback();
-                return new Result<Category>(message: "Fail to create the category");
+                return new Result<Category>(Message: "Fail to create the category");
             }
         }
 
@@ -157,18 +166,20 @@ namespace BookstoreManagementSystemLibrary.Database.EF
         {
             try
             {
-                var findCategory = context.Categories.Where(u => u.CategoryName == name);
+                var findCategory = context.Categories
+                    .Where(u => u.CategoryName == name)
+                    .Where(x => x.IsDeleted == false);
 
                 if (!findCategory.Any())
                 {
-                    return new Result<Category>(message: "Category not found");
+                    return new Result<Category>(Message: "Category not found");
                 }
 
-                return new Result<Category>(data: findCategory.FirstOrDefault());
+                return new Result<Category>(Data: findCategory.FirstOrDefault());
             }
             catch (Exception)
             {
-                return new Result<Category>(message: "Fail to find the Category");
+                return new Result<Category>(Message: "Fail to find the Category");
             }
         }
 
@@ -176,39 +187,41 @@ namespace BookstoreManagementSystemLibrary.Database.EF
         {
             try
             {
-                var findCategory = context.Categories;
+                var findCategory = context.Categories.Where(x => x.IsDeleted == false);
 
                 if (!findCategory.Any())
                 {
-                    return new Result<List<Category>>(message: "Category not found");
+                    return new Result<List<Category>>(Message: "Category not found");
                 }
 
-                return new Result<List<Category>>(data: findCategory.ToList());
+                return new Result<List<Category>>(Data: [.. findCategory]);
             }
             catch (Exception e)
             {
 
-                return new Result<List<Category>>(message: "Fail to find the Category");
+                return new Result<List<Category>>(Message: "Fail to find the Category");
             }
         }
 
-        public async Task<Result<User>> ResetPasswordAsync(string email, string salt)
+        public Task<Result<User>> ResetPasswordAsync(string email, string salt)
         {
             try
             {
-                var findUser = context.Users.Where(u => u.Email == email);
+                var findUser = context.Users
+                    .Where(u => u.Email == email)
+                    .Where(x => x.IsDeleted == false);
                 var user = findUser.FirstOrDefault();
 
                 if (user == null || user.Email == null)
                 {
-                    return new Result<User>(message: "user not found");
+                    return Task.FromResult(new Result<User>(Message: "loginUser not found"));
                 }
 
 
                 //var newPassword = PasswordGenerator.GenerateRandomPassword(10);
                 var newPassword = 10.GenerateRandomPassword();
 
-                Dictionary<EmailTemplatePlaceHolder, string> dataMapper = new Dictionary<EmailTemplatePlaceHolder, string>
+                Dictionary<EmailTemplatePlaceHolder, string> dataMapper = new()
                 {
                     {EmailTemplatePlaceHolder.Username,user.Username! },
                     {EmailTemplatePlaceHolder.Password,newPassword },
@@ -216,10 +229,10 @@ namespace BookstoreManagementSystemLibrary.Database.EF
 
                 //await Task.Run(async () =>
                 //{
-                //    await user.Email.SendHtmlEmailAsync("Password Reset", EmailTemplateType.PasswordReset, dataMapper);
+                //    await loginUser.Email.SendHtmlEmailAsync("Password Reset", EmailTemplateType.PasswordReset, dataMapper);
                 //});
 
-                Thread thread = new Thread(() =>
+                Thread thread = new(() =>
                 {
                     Task task = user.Email.SendHtmlEmailAsync("Password Reset", EmailTemplateType.PasswordReset, dataMapper);
                 });
@@ -228,13 +241,80 @@ namespace BookstoreManagementSystemLibrary.Database.EF
 
 
                 user.PasswordHash = newPassword.GetHash(salt);
+                context.Users.Update(user);
+                context.SaveChanges();
 
 
-                return new Result<User>(data: user);
+                return Task.FromResult(new Result<User>(Data: user));
             }
             catch (Exception)
             {
-                return new Result<User>(message: "Fail to find the user");
+                return Task.FromResult(new Result<User>(Message: "Fail to find the loginUser"));
+            }
+        }
+
+        public Result<User> TriggerLogin(string username)
+        {
+            using var transaction = context.Database.BeginTransaction();
+            try
+            {
+                var loginUser = context.Users
+                    .Where(x => x.Username == username)
+                    .Where(x => x.IsDeleted == false)
+                    .FirstOrDefault();
+
+
+                if (loginUser == null)
+                {
+                    return new Result<User>(Message: "Category not found");
+                }
+
+                loginUser.LastLogin = DateTime.Now;
+                context.Users.Update(loginUser);
+                context.SaveChanges();
+
+                transaction.Commit();
+                return new Result<User>(Data: loginUser);
+            }
+            catch (Exception e)
+            {
+                transaction.Rollback();
+                return new Result<User>(Message: "Fail to login the loginUser");
+            }
+        }
+
+        public Result<DashboardDataResult> GetDashboardData()
+        {
+            try
+            {
+                var totalBookCount = context.Books
+                                    ?.Where(x => x.IsDeleted == false)
+                                    ?.Count();
+                var totalSuppliersCount = context.Suppliers
+                    ?.Where(x => x.IsDeleted == false)
+                    ?.Count();
+                var totalOrderList = context.Orders
+                                    ?.Where(x => x.IsDeleted == false)
+                                    ?.Count();
+                var totalIncome = context.OrderDetails
+                                    .Where(x => x.IsDeleted == false)
+                                    ?.Select(x => x.CalculatePrice())
+                                    ?.ToList()
+                                    ?.Sum();
+
+                DashboardDataResult result = new()
+                {
+                    TotalBooks = totalBookCount ?? 0,
+                    TotalSuppliers = totalSuppliersCount ?? 0,
+                    TotalOrder = totalOrderList ?? 0,
+                    TotalIncome = totalIncome ?? 0,
+                };
+
+                return new Result<DashboardDataResult>(Data: result);
+            }
+            catch (Exception e)
+            {
+                return new Result<DashboardDataResult>(Message: "Fail to find the book");
             }
         }
 

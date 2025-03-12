@@ -41,7 +41,7 @@ namespace BookstoreManagementSystemUI.Components.Models.Users
         {
             if (cmbRole.SelectedIndex == 0 || string.IsNullOrEmpty(txtUsername.Text) || string.IsNullOrEmpty(txtPassword.Text) || string.IsNullOrEmpty(txtPasswordConfirm.Text))
             {
-                MaterialMessageBox.Show("Role not selected!", "Form Validation", false, FlexibleMaterialForm.ButtonsPosition.Center);
+                MaterialMessageBox.Show("Invalid Data!", "Form Validation", false, FlexibleMaterialForm.ButtonsPosition.Center);
                 return;
             }
 
@@ -55,13 +55,14 @@ namespace BookstoreManagementSystemUI.Components.Models.Users
                     PasswordHash = txtPassword.Text.GetHash(salt),
                     Email = txtEmail.Text,
                     Role = selectedRole,
+                    Status = UserStatus.Active,
                 };
 
                 var createUserResult = process.CreateUser(newUser);
 
-                if (createUserResult.data == null)
+                if (createUserResult.Data == null)
                 {
-                    MaterialMessageBox.Show(createUserResult.message, "Create user", false, FlexibleMaterialForm.ButtonsPosition.Center);
+                    MaterialMessageBox.Show(createUserResult.Message, "Create user", false, FlexibleMaterialForm.ButtonsPosition.Center);
                 }
             });
         }

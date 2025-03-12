@@ -72,7 +72,7 @@
             mtcRootLayout.Multiline = true;
             mtcRootLayout.Name = "mtcRootLayout";
             mtcRootLayout.SelectedIndex = 0;
-            mtcRootLayout.Size = new Size(1267, 789);
+            mtcRootLayout.Size = new Size(1838, 1021);
             mtcRootLayout.SizeMode = TabSizeMode.FillToRight;
             mtcRootLayout.TabIndex = 0;
             mtcRootLayout.SelectedIndexChanged += mtcRootLayout_SelectedIndexChanged;
@@ -81,11 +81,11 @@
             // 
             tpDashboard.Controls.Add(frmDashboardPage1);
             tpDashboard.ImageKey = "dashboard.png";
-            tpDashboard.Location = new Point(4, 58);
+            tpDashboard.Location = new Point(4, 33);
             tpDashboard.Margin = new Padding(4);
             tpDashboard.Name = "tpDashboard";
             tpDashboard.Padding = new Padding(4);
-            tpDashboard.Size = new Size(1259, 727);
+            tpDashboard.Size = new Size(1830, 984);
             tpDashboard.TabIndex = 0;
             tpDashboard.Text = "Dashboard";
             tpDashboard.UseVisualStyleBackColor = true;
@@ -94,19 +94,20 @@
             // 
             frmDashboardPage1.Dock = DockStyle.Fill;
             frmDashboardPage1.Location = new Point(4, 4);
+            frmDashboardPage1.Margin = new Padding(3, 4, 3, 4);
             frmDashboardPage1.Name = "frmDashboardPage1";
-            frmDashboardPage1.Size = new Size(1251, 719);
+            frmDashboardPage1.Size = new Size(1822, 976);
             frmDashboardPage1.TabIndex = 0;
             // 
             // tpPOS
             // 
             tpPOS.Controls.Add(frmPosPage1);
             tpPOS.ImageKey = "POS.png";
-            tpPOS.Location = new Point(4, 58);
+            tpPOS.Location = new Point(4, 31);
             tpPOS.Margin = new Padding(4);
             tpPOS.Name = "tpPOS";
             tpPOS.Padding = new Padding(4);
-            tpPOS.Size = new Size(1259, 727);
+            tpPOS.Size = new Size(1259, 754);
             tpPOS.TabIndex = 1;
             tpPOS.Text = "POS";
             tpPOS.UseVisualStyleBackColor = true;
@@ -114,11 +115,12 @@
             // frmPosPage1
             // 
             frmPosPage1.Dock = DockStyle.Fill;
+            frmPosPage1.Font = new Font("Fira Code", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             frmPosPage1.Location = new Point(4, 4);
             frmPosPage1.Margin = new Padding(4);
             frmPosPage1.Name = "frmPosPage1";
             frmPosPage1.ReloadPageDataDel = null;
-            frmPosPage1.Size = new Size(1251, 719);
+            frmPosPage1.Size = new Size(1251, 746);
             frmPosPage1.TabIndex = 1;
             // 
             // tpOrderList
@@ -244,9 +246,9 @@
             // 
             // frmDashboard
             // 
-            AutoScaleDimensions = new SizeF(10F, 20F);
+            AutoScaleDimensions = new SizeF(12F, 24F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1275, 870);
+            ClientSize = new Size(1846, 1102);
             Controls.Add(mtcRootLayout);
             DrawerShowIconsWhenHidden = true;
             DrawerTabControl = mtcRootLayout;

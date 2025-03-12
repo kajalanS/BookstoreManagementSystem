@@ -1,6 +1,8 @@
 ﻿using BookstoreManagementSystemLibrary.Database.Core;
 using BookstoreManagementSystemLibrary.Database.EF;
 using BookstoreManagementSystemLibrary.Database.EF.Enum;
+using BookstoreManagementSystemLibrary.Models;
+using DocumentFormat.OpenXml.InkML;
 
 namespace BookstoreManagementSystemLibrary
 {
@@ -8,6 +10,7 @@ namespace BookstoreManagementSystemLibrary
     {
         public static List<IDataConnector> Connections { get; private set; } = [];
         public static string Salt = "WRlNzJmYmU3MDh";
+        public static User? logedInUser { get; private set; }
 
         public static void InitilizeConnection(List<EFConnectionType> connectionTypes, Dictionary<EFConnectionType, string> connectionStringList, string salt)
         {
@@ -55,6 +58,13 @@ namespace BookstoreManagementSystemLibrary
             {
                 processor.Invoke(item, Salt);
             }
+        }
+
+        public static void SaveLoginUser(this User user)
+        {
+            /// remove password for safty
+            user.PasswordHash = "";
+            logedInUser = user;
         }
     }
 }

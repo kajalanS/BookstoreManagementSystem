@@ -1,7 +1,6 @@
 ﻿using BookstoreManagementSystemLibrary;
 using BookstoreManagementSystemLibrary.Models;
 using BookstoreManagementSystemUI.Components;
-using BookstoreManagementSystemUI.Extentions;
 using MaterialSkin.Controls;
 using System;
 using System.Collections.Generic;
@@ -96,26 +95,26 @@ namespace BookstoreManagementSystemUI.Forms
             {
                 var bookResult = process.GetAllBooks();
 
-                if (bookResult.data != null)
+                if (bookResult.Data != null)
                 {
-                    BookList = bookResult.data;
+                    BookList = bookResult.Data;
                     LoadBooksList?.Invoke(BookList);
                 }
                 else
                 {
-                    MaterialMessageBox.Show(bookResult.message, "Book Load", false, FlexibleMaterialForm.ButtonsPosition.Center);
+                    MaterialMessageBox.Show(bookResult.Message, "Book Load", false, FlexibleMaterialForm.ButtonsPosition.Center);
                 }
 
                 var categoryResult = process.GetAllCategories();
 
-                if (categoryResult.data != null)
+                if (categoryResult.Data != null)
                 {
-                    CategoryList = categoryResult.data;
+                    CategoryList = categoryResult.Data;
                     LoadCategoriesList?.Invoke(CategoryList);
                 }
                 else
                 {
-                    MaterialMessageBox.Show(categoryResult.message, "Book Load", false, FlexibleMaterialForm.ButtonsPosition.Center);
+                    MaterialMessageBox.Show(categoryResult.Message, "Book Load", false, FlexibleMaterialForm.ButtonsPosition.Center);
                 }
             });
         }
