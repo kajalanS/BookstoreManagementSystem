@@ -96,22 +96,22 @@ namespace BookstoreManagementSystemLibrary.Models
         /// Navigation property to the associated customer.
         /// </summary>
         [ForeignKey("CustomerId")]
-        public virtual Customer? Customer { get; set; }
+        public Customer? Customer { get; set; }
 
         /// <summary>
         /// Navigation property to the associated user.
         /// </summary>
         [ForeignKey("UserId")]
-        public virtual User? User { get; set; }
+        public User? User { get; set; }
 
         /// <summary>
         /// Navigation property for the order details.
         /// </summary>
-        public virtual ICollection<OrderDetail>? OrderDetails { get; set; }
+        public ICollection<OrderDetail>? OrderDetails { get; set; }
 
         /// <summary>
         /// Navigation property for the receipt generated for this order.
         /// </summary>
-        public virtual Receipt? Receipt { get; set; }
+        public Receipt? Receipt { get; set; }
     }
 }

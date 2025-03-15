@@ -13,21 +13,22 @@ using System.Windows.Forms;
 using BookstoreManagementSystemUI.Forms;
 using BookstoreManagementSystemLibrary.Models;
 using BookstoreManagementSystemUI.Helpers;
+//using EFCategory = BookstoreManagementSystemLibrary.Models.Category;
 
-namespace BookstoreManagementSystemUI.Components.Models.Users
+namespace BookstoreManagementSystemUI.Components.Models.Books
 {
     public partial class frmCreateBookModel : UserControl
     {
         private Image? imageData;
-        private List<Category>? categoryList;
+        private List<BookstoreManagementSystemLibrary.Models.Category>? categoryList;
 
         public frmCreateBookModel()
         {
             InitializeComponent();
-            frmDashboard.LoadCategoriesList += LoadCategories;
+			frmDashboard.LoadCategoriesList += LoadCategories;
         }
 
-        public void LoadCategories(List<Category>? category)
+        public void LoadCategories(List<BookstoreManagementSystemLibrary.Models.Category>? category)
         {
             categoryList = category;
             if (category != null)

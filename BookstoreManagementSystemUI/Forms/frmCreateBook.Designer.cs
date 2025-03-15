@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            frmCreateBookModel1 = new Components.Models.Users.frmCreateBookModel();
+            frmCreateBookModel1 = new Components.Models.Books.frmCreateBookModel();
             SuspendLayout();
             // 
             // frmCreateBookModel1
@@ -58,6 +58,6 @@
 
         #endregion
 
-        private Components.Models.Users.frmCreateBookModel frmCreateBookModel1;
+        private Components.Models.Books.frmCreateBookModel frmCreateBookModel1;
     }
 }

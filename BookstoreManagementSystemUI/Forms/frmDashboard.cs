@@ -63,6 +63,8 @@ namespace BookstoreManagementSystemUI.Forms
         {
             frmPosPage1.LoadBooks(BookList);
             frmPosPage1.LoadCategory(CategoryList);
+            frmOrderListView.SetUpPage(false);
+            frmPreOrderListView.SetUpPage(true);
         }
 
         private void HandleSubscrioption()
