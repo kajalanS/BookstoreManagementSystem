@@ -1,4 +1,5 @@
 ﻿using BookstoreManagementSystemLibrary;
+using BookstoreManagementSystemLibrary.Database.Core.Enum;
 using BookstoreManagementSystemLibrary.Models;
 using BookstoreManagementSystemUI.Components;
 using MaterialSkin.Controls;
@@ -51,12 +52,97 @@ namespace BookstoreManagementSystemUI.Forms
             LoadPagesOnLoad();
 
             InitializeComponent();
+
+            LoginUserControll();
+
             FrmLogin = frmLogin;
 
             InitPageDataLoad();
 
             HandleSubscrioption();
 
+        }
+
+        private void LoginUserControll()
+        {
+            var loggedInUser = GlobalConfig.loggedInUser;
+            if (loggedInUser == null)
+            {
+                mtcRootLayout.Visible = false;
+                return;
+            }
+            ConfigLayout(loggedInUser.Role);
+        }
+
+        private void ConfigLayout(UserRole role)
+        {
+            ResetLayout();
+            if (role == UserRole.Admin)
+            {
+                ToggleTapPage(tpDashboard, true);
+                ToggleTapPage(tpPOS, true);
+                ToggleTapPage(tpOrderList, true);
+                ToggleTapPage(tpPreBooking, true);
+                ToggleTapPage(tpBookList, true);
+                ToggleTapPage(tpSupplierList, true);
+                ToggleTapPage(tpUserList, true);
+                ToggleTapPage(tpProfile, true);
+                ToggleTapPage(tpActivityLog, true);
+                // ToggleTapPage(tpGeneral, true);
+            }
+            else if (role == UserRole.Employee)
+            {
+                ToggleTapPage(tpDashboard, true);
+                ToggleTapPage(tpPOS, true);
+                ToggleTapPage(tpOrderList, true);
+                ToggleTapPage(tpPreBooking, true);
+                ToggleTapPage(tpProfile, true);
+                ToggleTapPage(tpBookList, true);
+                ToggleTapPage(tpActivityLog, true);
+                // ToggleTapPage(tpGeneral, true);
+                // ToggleTapPage(tpSupplierList, true);
+                // ToggleTapPage(tpUserList, true);
+            }
+            else if (role == UserRole.Customer)
+            {
+                ToggleTapPage(tpOrderList, true);
+                ToggleTapPage(tpPreBooking, true);
+                ToggleTapPage(tpBookList, true);
+                ToggleTapPage(tpProfile, true);
+            }
+            else
+            {
+                ToggleTapPage(tpNoAccess, true);
+            }
+        }
+
+        private void ResetLayout()
+        {
+            ToggleTapPage(tpActivityLog, false);
+            ToggleTapPage(tpBookList, false);
+            ToggleTapPage(tpGeneral, false);
+            ToggleTapPage(tpOrderList, false);
+            ToggleTapPage(tpPOS, false);
+            ToggleTapPage(tpPreBooking, false);
+            ToggleTapPage(tpProfile, false);
+            ToggleTapPage(tpSupplierList, false);
+            ToggleTapPage(tpUserList, false);
+            ToggleTapPage(tpDashboard, false);
+            ToggleTapPage(tpNoAccess, false);
+        }
+
+        private void ToggleTapPage(TabPage tapPage, bool toggle)
+        {
+            if (toggle)
+            {
+                tapPage.Visible = true;
+                mtcRootLayout.TabPages.Add(tapPage);
+            }
+            else
+            {
+                tapPage.Visible = false;
+                mtcRootLayout.TabPages.Remove(tapPage);
+            }
         }
 
         private void InitPageDataLoad()

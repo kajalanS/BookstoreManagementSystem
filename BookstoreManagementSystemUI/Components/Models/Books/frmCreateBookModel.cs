@@ -25,7 +25,7 @@ namespace BookstoreManagementSystemUI.Components.Models.Books
         public frmCreateBookModel()
         {
             InitializeComponent();
-			frmDashboard.LoadCategoriesList += LoadCategories;
+            frmDashboard.LoadCategoriesList += LoadCategories;
         }
 
         public void LoadCategories(List<BookstoreManagementSystemLibrary.Models.Category>? category)
@@ -47,6 +47,7 @@ namespace BookstoreManagementSystemUI.Components.Models.Books
             if (openDialog.ShowDialog() == DialogResult.OK)
             {
                 imageData = Image.FromFile(openDialog.FileName);
+                pbImage.Image = imageData;
             }
         }
 
@@ -104,10 +105,7 @@ namespace BookstoreManagementSystemUI.Components.Models.Books
 
                     var createUserResult = process.CreateBook(newBook);
 
-                    if (createUserResult.Data == null)
-                    {
-                        MaterialMessageBox.Show(createUserResult.Message, "Create user", false, FlexibleMaterialForm.ButtonsPosition.Center);
-                    }
+                    MaterialMessageBox.Show(createUserResult.Message, "Create user", false, FlexibleMaterialForm.ButtonsPosition.Center);
                 });
             }
             catch (Exception)

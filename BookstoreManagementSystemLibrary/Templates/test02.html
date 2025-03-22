@@ -1,0 +1,111 @@
+<html>
+  <head>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+      .header {
+        text-align: center;
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 10px;
+      }
+      th,
+      td {
+        padding: 8px;
+        text-align: left;
+      }
+      /* Align Price and Total columns to right in the item table */
+      table.items td:nth-child(3),
+      table.items td:nth-child(4),
+      table.items th:nth-child(3),
+      table.items th:nth-child(4) {
+        text-align: right;
+      }
+      /* Align the second column in the invoice summary table to right */
+      table.invoice-summary td:nth-child(2) {
+        text-align: right;
+      }
+      .separator {
+        border-top: 2px solid #000;
+        margin: 10px 0;
+      }
+      .invoice-summary {
+        width: 100%;
+        margin-top: 10px;
+      }
+      .invoice-summary td {
+        padding: 5px;
+      }
+      .footer {
+        text-align: center;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        font-style: italic;
+      }
+      .b3 {
+        border-top: 5px solid #000 !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="separator b3"></div>
+    <div class="header">BookHaven Bookstore Invoice</div>
+    <div class="separator b3"></div>
+    <div>Date: March, 23 2025 01:39 AM</div>
+    <div class="separator"></div>
+    <table class="items">
+      <tr>
+        <th>Item</th>
+        <th>Qty</th>
+        <th>Price</th>
+        <th>Total</th>
+      </tr>
+    </table>
+    <div class="separator"></div>
+    <table class="items">
+      <!-- <tr>
+        <td>Book A</td>
+        <td>2</td>
+        <td>10 LKR</td>
+        <td>20 LKR</td>
+      </tr> -->
+      <tr>
+        <td>The Great Gatsby</td>
+        <td>1</td>
+        <td>10.99 LKR</td>
+        <td>10.99 LKR</td>
+      </tr>
+      <tr>
+        <td>A Brief History of Time</td>
+        <td>2</td>
+        <td>31.00 LKR</td>
+        <td>31.00 LKR</td>
+      </tr>
+    </table>
+    <div class="separator"></div>
+    <table class="invoice-summary">
+      <tr>
+        <td>Subtotal:</td>
+        <td>41.99 LKR</td>
+      </tr>
+      <tr>
+        <td>Discount:</td>
+        <td>0 LKR</td>
+      </tr>
+      <tr>
+        <td>Total:</td>
+        <td>41.99 LKR</td>
+      </tr>
+    </table>
+    <div class="separator"></div>
+    <div class="footer">Thank you for your purchase!</div>
+    <div class="separator b3"></div>
+  </body>
+</html>

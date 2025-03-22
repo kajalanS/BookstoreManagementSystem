@@ -133,6 +133,16 @@ namespace BookstoreManagementSystemUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap no_access {
+            get {
+                object obj = ResourceManager.GetObject("no_access", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap order_bg {
             get {
                 object obj = ResourceManager.GetObject("order_bg", resourceCulture);

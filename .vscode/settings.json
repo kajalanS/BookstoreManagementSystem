@@ -18,5 +18,8 @@
     "publish": true,
     "**/Seeds": true
   },
-  "explorerExclude.backup": {}
+  "explorerExclude.backup": {},
+  "cSpell.words": [
+    "EFDB"
+  ]
 }
