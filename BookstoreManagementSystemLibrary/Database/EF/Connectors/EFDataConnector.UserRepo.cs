@@ -1,4 +1,4 @@
-﻿using BookstoreManagementSystemLibrary.Database.Core;
+using BookstoreManagementSystemLibrary.Database.Core;
 using BookstoreManagementSystemLibrary.Helpers;
 using BookstoreManagementSystemLibrary.Models;
 using BookstoreManagementSystemLibrary.Services;
@@ -98,10 +98,10 @@ namespace BookstoreManagementSystemLibrary.Database.EF.Connectors
                 var newPassword = 10.GenerateRandomPassword();
 
                 Dictionary<EmailTemplatePlaceHolder, object> dataMapper = new()
-        {
-          {EmailTemplatePlaceHolder.Username,user.Username! },
-          {EmailTemplatePlaceHolder.Password,newPassword },
-        };
+                {
+                  {EmailTemplatePlaceHolder.Username,user.Username! },
+                  {EmailTemplatePlaceHolder.Password,newPassword },
+                };
 
                 Thread thread = new(() =>
                 {
@@ -167,7 +167,7 @@ namespace BookstoreManagementSystemLibrary.Database.EF.Connectors
                   .FirstOrDefault();
                 if (loginUser == null)
                 {
-                    return new Result<User>(Message: "Category not found");
+                    return new Result<User>(Message: "User not found");
                 }
                 loginUser.LastLogin = DateTime.Now;
                 context.Users.Update(loginUser);

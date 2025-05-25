@@ -1,4 +1,4 @@
-﻿using BookstoreManagementSystemLibrary.Database.Core.Enum;
+using BookstoreManagementSystemLibrary.Database.Core.Enum;
 using BookstoreManagementSystemLibrary;
 using MaterialSkin.Controls;
 using System;
@@ -13,19 +13,66 @@ using System.Windows.Forms;
 using BookstoreManagementSystemUI.Forms;
 using BookstoreManagementSystemLibrary.Models;
 using BookstoreManagementSystemUI.Helpers;
-//using EFCategory = BookstoreManagementSystemLibrary.Models.Category;
+using BookstoreManagementSystemLibrary.Database.Core;
+using EFCategory = BookstoreManagementSystemLibrary.Models.Category;
 
 namespace BookstoreManagementSystemUI.Components.Models.Books
 {
     public partial class frmCreateBookModel : UserControl
     {
+
+        public delegate void ReloadRequest();
+        public static ReloadRequest? FullReloadRequest { get; set; }
+
         private Image? imageData;
         private List<BookstoreManagementSystemLibrary.Models.Category>? categoryList;
+        private bool isStockUpdate = false;
+        private Book? StockBook;
 
         public frmCreateBookModel()
         {
             InitializeComponent();
-            frmDashboard.LoadCategoriesList += LoadCategories;
+            //frmDashboard.LoadCategoriesList += LoadCategories;
+            GlobalConfig.Process((processor, salt) =>
+            {
+                var categoryResult = processor.GetAllCategories();
+                if (categoryResult.Data == null)
+                {
+                    MaterialMessageBox.Show(categoryResult?.Message, "Category Not Found", false);
+                    return;
+                }
+
+                LoadCategories(categoryResult.Data);
+            });
+        }
+
+        public void SetupStockUpdate(Book book)
+        {
+            isStockUpdate = true;
+            StockBook = book;
+
+            txtTitle.Text = book.Title;
+            txtAuthor.Text = book.Author;
+            txtIsbn.Text = book.ISBN;
+            txtPrice.Text = Math.Round(book.Price, 2).ToString();
+            cmbCategory.Text = book.Category?.CategoryName;
+            txtPublisher.Text = book.Publisher;
+            txtYear.Text = book.PublicationYear.ToString();
+            txtLanguage.Text = book.Language;
+
+            txtTitle.Enabled = false;
+            txtAuthor.Enabled = false;
+            txtIsbn.Enabled = false;
+            txtPrice.Enabled = false;
+            cmbCategory.Enabled = false;
+            txtPublisher.Enabled = false;
+            txtYear.Enabled = false;
+            txtLanguage.Enabled = false;
+            pbImage.Enabled = false;
+
+            btnCreateBook.Text = "Update Stock";
+
+            cmbCategory.Text = book.Category?.CategoryName;
         }
 
         public void LoadCategories(List<BookstoreManagementSystemLibrary.Models.Category>? category)
@@ -34,6 +81,11 @@ namespace BookstoreManagementSystemUI.Components.Models.Books
             if (category != null)
             {
                 cmbCategory.Items.AddRange([.. category.Select(x => x.CategoryName)]);
+            }
+
+            if (isStockUpdate && StockBook?.Category?.CategoryName != null)
+            {
+                cmbCategory.SelectedText = StockBook.Category.CategoryName;
             }
         }
 
@@ -87,7 +139,30 @@ namespace BookstoreManagementSystemUI.Components.Models.Books
                     return;
                 }
 
-                GlobalConfig.Process((process, salt) =>
+                GlobalConfig.Process(ProcessBookInfo(selectedCategory, price, quantity, year));
+            }
+            catch (Exception)
+            {
+                MaterialMessageBox.Show("Fail to create Book!", "Create Book", false, FlexibleMaterialForm.ButtonsPosition.Center);
+                throw;
+            }
+        }
+
+        private Action<IDataConnector, string> ProcessBookInfo(EFCategory selectedCategory, decimal price, int quantity, int year)
+        {
+            return (process, salt) =>
+            {
+                if (isStockUpdate)
+                {
+                    if (StockBook != null)
+                    {
+                        StockBook.StockQuantity = quantity;
+                        var updateBookResult = process.EditBook(StockBook);
+
+                        MaterialMessageBox.Show(updateBookResult.Message, "Update Stock", false, FlexibleMaterialForm.ButtonsPosition.Center);
+                    }
+                }
+                else
                 {
                     var newBook = new Book()
                     {
@@ -104,15 +179,11 @@ namespace BookstoreManagementSystemUI.Components.Models.Books
                     };
 
                     var createUserResult = process.CreateBook(newBook);
+                    MaterialMessageBox.Show(createUserResult.Message, "Create Book", false, FlexibleMaterialForm.ButtonsPosition.Center);
+                }
 
-                    MaterialMessageBox.Show(createUserResult.Message, "Create user", false, FlexibleMaterialForm.ButtonsPosition.Center);
-                });
-            }
-            catch (Exception)
-            {
-                MaterialMessageBox.Show("Fail to create Book!", "Create Book", false, FlexibleMaterialForm.ButtonsPosition.Center);
-                throw;
-            }
+                FullReloadRequest?.Invoke();
+            };
         }
     }
 }

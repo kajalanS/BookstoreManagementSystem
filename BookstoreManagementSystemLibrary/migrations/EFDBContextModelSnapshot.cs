@@ -84,7 +84,7 @@ namespace BookstoreManagementSystemLibrary.Migrations
                     b.Property<byte[]>("Image")
                         .HasColumnType("longblob");
 
-                    b.Property<bool?>("IsDeleted")
+                    b.Property<bool>("IsDeleted")
                         .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Language")
@@ -132,7 +132,7 @@ namespace BookstoreManagementSystemLibrary.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("longtext");
 
-                    b.Property<bool?>("IsDeleted")
+                    b.Property<bool>("IsDeleted")
                         .HasColumnType("tinyint(1)");
 
                     b.HasKey("CategoryId");
@@ -143,42 +143,6 @@ namespace BookstoreManagementSystemLibrary.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("BookstoreManagementSystemLibrary.Models.Customer", b =>
-                {
-                    b.Property<int>("CustomerId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("CustomerId"));
-
-                    b.Property<string>("Address")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<bool?>("IsDeleted")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("varchar(255)");
-
-                    b.HasKey("CustomerId");
-
-                    b.HasIndex("Email")
-                        .IsUnique();
-
-                    b.HasIndex("PhoneNumber")
-                        .IsUnique();
-
-                    b.ToTable("Customers");
-                });
-
             modelBuilder.Entity("BookstoreManagementSystemLibrary.Models.Order", b =>
                 {
                     b.Property<int>("OrderId")
@@ -187,13 +151,10 @@ namespace BookstoreManagementSystemLibrary.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("OrderId"));
 
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("int");
-
                     b.Property<int>("DeliveryMethod")
                         .HasColumnType("int");
 
-                    b.Property<bool?>("IsDeleted")
+                    b.Property<bool>("IsDeleted")
                         .HasColumnType("tinyint(1)");
 
                     b.Property<DateTime>("OrderDate")
@@ -219,8 +180,6 @@ namespace BookstoreManagementSystemLibrary.Migrations
 
                     b.HasKey("OrderId");
 
-                    b.HasIndex("CustomerId");
-
                     b.HasIndex("UserId");
 
                     b.ToTable("Orders");
@@ -240,7 +199,7 @@ namespace BookstoreManagementSystemLibrary.Migrations
                     b.Property<decimal?>("Discount")
                         .HasColumnType("decimal(65,30)");
 
-                    b.Property<bool?>("IsDeleted")
+                    b.Property<bool>("IsDeleted")
                         .HasColumnType("tinyint(1)");
 
                     b.Property<int>("OrderId")
@@ -304,7 +263,7 @@ namespace BookstoreManagementSystemLibrary.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(255)");
 
-                    b.Property<bool?>("IsDeleted")
+                    b.Property<bool>("IsDeleted")
                         .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Name")
@@ -360,7 +319,7 @@ namespace BookstoreManagementSystemLibrary.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(255)");
 
-                    b.Property<bool?>("IsDeleted")
+                    b.Property<bool>("IsDeleted")
                         .HasColumnType("tinyint(1)");
 
                     b.Property<DateTime?>("LastLogin")
@@ -422,7 +381,7 @@ namespace BookstoreManagementSystemLibrary.Migrations
                     b.HasOne("BookstoreManagementSystemLibrary.Models.Category", "Category")
                         .WithMany("Books")
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Category");
@@ -430,19 +389,11 @@ namespace BookstoreManagementSystemLibrary.Migrations
 
             modelBuilder.Entity("BookstoreManagementSystemLibrary.Models.Order", b =>
                 {
-                    b.HasOne("BookstoreManagementSystemLibrary.Models.Customer", "Customer")
-                        .WithMany("Orders")
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("BookstoreManagementSystemLibrary.Models.User", "User")
                         .WithMany("Orders")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Customer");
 
                     b.Navigation("User");
                 });
@@ -485,11 +436,6 @@ namespace BookstoreManagementSystemLibrary.Migrations
             modelBuilder.Entity("BookstoreManagementSystemLibrary.Models.Category", b =>
                 {
                     b.Navigation("Books");
-                });
-
-            modelBuilder.Entity("BookstoreManagementSystemLibrary.Models.Customer", b =>
-                {
-                    b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("BookstoreManagementSystemLibrary.Models.Order", b =>

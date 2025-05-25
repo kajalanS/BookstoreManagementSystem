@@ -1,4 +1,4 @@
-﻿using BookstoreManagementSystemLibrary;
+using BookstoreManagementSystemLibrary;
 using BookstoreManagementSystemLibrary.Database.Core;
 using BookstoreManagementSystemLibrary.Database.Core.Enum;
 using BookstoreManagementSystemLibrary.Helpers;
@@ -26,6 +26,7 @@ namespace BookstoreManagementSystemUI.Components.Pos
         protected Dictionary<Book, OrderDetail>? OrderDetailList = [];
         public List<Book>? BookList { get; protected set; }
         public List<Category>? CategoryList { get; protected set; }
+        public List<User>? CustomerList { get; protected set; }
 
         #endregion
 
@@ -39,6 +40,16 @@ namespace BookstoreManagementSystemUI.Components.Pos
         {
             frmDashboard.LoadCategoriesList += LoadCategory;
             frmDashboard.LoadBooksList += LoadBooks;
+            frmDashboard.LoadCustomersList += LoadCustomer;
+        }
+
+        public void LoadCustomer(List<User>? customers)
+        {
+            if (customers != null)
+            {
+                CustomerList = customers;
+                ArrangeShelf();
+            }
         }
 
         public void LoadBooks(List<Book>? books)
@@ -64,6 +75,21 @@ namespace BookstoreManagementSystemUI.Components.Pos
             ArrangeCategoryData();
             ArrangeBookData();
             ArrangeOrderDetailsData();
+            ArrangeCustomerData();
+        }
+
+        private void ArrangeCustomerData()
+        {
+            if (CustomerList != null)
+            {
+                cmbCustomer.Items.Clear();
+                //cmbCustomer.Items.Add("Walk In Customer");
+                foreach (var customer in CustomerList)
+                {
+                    cmbCustomer.Items.Add($"{customer.Username} ({customer.UserId})");
+                    //cmbCustomer.Items.Add(customer);
+                }
+            }
         }
 
         private void ArrangeCategoryData()
@@ -246,7 +272,13 @@ namespace BookstoreManagementSystemUI.Components.Pos
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
+            Reset();
+        }
+
+        private void Reset()
+        {
             OrderDetailList?.Clear();
+            ArrangeShelf();
         }
 
         private void btnCheckout_Click(object sender, EventArgs e)
@@ -259,6 +291,13 @@ namespace BookstoreManagementSystemUI.Components.Pos
             GlobalConfig.Process((process, key) => CreateBooking(process, key, OrderType.PreOrder));
         }
 
+        private int GetSelectedCustomer()
+        {
+            if (cmbCustomer.SelectedItem == null) return 0;
+            var selectedCustomer = CustomerList?.Where(x => $"{x.Username} ({x.UserId})" == cmbCustomer.SelectedItem.ToString()).FirstOrDefault();
+            return selectedCustomer?.UserId ?? 0;
+        }
+
         private void CreateBooking(IDataConnector connector, string arg2, OrderType orderType)
         {
             if (OrderDetailList != null)
@@ -266,17 +305,32 @@ namespace BookstoreManagementSystemUI.Components.Pos
                 var totalValue = OrderDetailList.Values.Select(x => x.CalculatePrice()).Sum();
                 Order newOrder = new()
                 {
-                    CustomerId = 1,
+                    UserId = GetSelectedCustomer(),
                     DeliveryMethod = DeliveryMethod.InStorePickup,
                     OrderDate = DateTime.Now,
-                    OrderStatus = OrderStatus.Pending,
+                    OrderStatus = OrderStatus.Completed,
                     OrderType = orderType,
                     PaymentMethod = PaymentMethod.Cash,
-                    PaymentStatus = PaymentStatus.Pending,
+                    PaymentStatus = PaymentStatus.Paid,
                     TotalAmount = totalValue,
-                    UserId = GlobalConfig.loggedInUser!.UserId,
                     OrderDetails = OrderDetailList.Values,
                 };
+
+                if (orderType == OrderType.PreOrder)
+                {
+                    newOrder.OrderStatus = OrderStatus.Pending;
+                    newOrder.PaymentStatus = PaymentStatus.Pending;
+                }
+
+                var orderResult = connector.CreateOrder(newOrder);
+
+                if (orderResult.Data == null)
+                {
+                    MaterialMessageBox.Show(orderResult.Message, "Create Order", false);
+                    return;
+                }
+
+                newOrder = orderResult.Data;
 
                 var dicount = newOrder.OrderDetails?.Select(x => x.Discount ?? 0).Sum() ?? 0;
                 var subTotal = newOrder.OrderDetails?.Select(x => x.UnitPrice).Sum() ?? 0;
@@ -289,10 +343,19 @@ namespace BookstoreManagementSystemUI.Components.Pos
                     {EmailTemplatePlaceHolder.OrderObject, newOrder },
                     {EmailTemplatePlaceHolder.OrderDate, newOrder.OrderDate.ToString("MMMM, dd yyyy hh:mm tt") },
                 };
+
                 string htmlInvoice = EmailTemplateType.Invoice.ProcessTemplate(mapper);
-                HtmlInvoicePrinter printer = new();
-                printer.PrintHtmlInvoice(htmlInvoice);
+                HtmlInvoicePrinter printer = HtmlInvoicePrinter.Create(htmlInvoice);
+                printer.PrintHtmlInvoice();
+
+                Reset();
             }
+        }
+
+        private void btnAddCustomer_Click(object sender, EventArgs e)
+        {
+            var customer = new frmCreateCustomer();
+            customer.ShowDialog();
         }
     }
 }

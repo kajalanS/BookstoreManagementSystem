@@ -47,12 +47,16 @@
             tableLayoutPanel3 = new TableLayoutPanel();
             btnPreBooking = new MaterialSkin.Controls.MaterialButton();
             btnCancel = new MaterialSkin.Controls.MaterialButton();
+            btnAddCustomer = new MaterialSkin.Controls.MaterialButton();
+            materialCard3 = new MaterialSkin.Controls.MaterialCard();
+            cmbCustomer = new MaterialSkin.Controls.MaterialComboBox();
             tableLayoutPanel1.SuspendLayout();
             materialCard1.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
             materialCard2.SuspendLayout();
             tableLayoutPanel4.SuspendLayout();
             tableLayoutPanel3.SuspendLayout();
+            materialCard3.SuspendLayout();
             SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -127,7 +131,7 @@
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 15F));
-            tableLayoutPanel2.Controls.Add(label1, 1, 1);
+            tableLayoutPanel2.Controls.Add(label1, 1, 0);
             tableLayoutPanel2.Controls.Add(label5, 1, 3);
             tableLayoutPanel2.Controls.Add(lblTotalOrderList, 2, 3);
             tableLayoutPanel2.Controls.Add(flpCheckoutShelf, 1, 2);
@@ -136,8 +140,8 @@
             tableLayoutPanel2.Margin = new Padding(4);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
             tableLayoutPanel2.RowCount = 5;
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 28F));
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 126F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 75F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 87F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 28F));
@@ -150,10 +154,11 @@
             tableLayoutPanel2.SetColumnSpan(label1, 3);
             label1.Dock = DockStyle.Fill;
             label1.Font = new Font("Fira Code", 23.9999981F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(19, 28);
+            label1.Location = new Point(19, 0);
             label1.Margin = new Padding(4, 0, 4, 0);
             label1.Name = "label1";
-            label1.Size = new Size(307, 126);
+            tableLayoutPanel2.SetRowSpan(label1, 2);
+            label1.Size = new Size(307, 95);
             label1.TabIndex = 0;
             label1.Text = "Checkout";
             label1.TextAlign = ContentAlignment.MiddleCenter;
@@ -191,10 +196,10 @@
             tableLayoutPanel2.SetColumnSpan(flpCheckoutShelf, 4);
             flpCheckoutShelf.Dock = DockStyle.Fill;
             flpCheckoutShelf.FlowDirection = FlowDirection.TopDown;
-            flpCheckoutShelf.Location = new Point(19, 158);
+            flpCheckoutShelf.Location = new Point(19, 99);
             flpCheckoutShelf.Margin = new Padding(4);
             flpCheckoutShelf.Name = "flpCheckoutShelf";
-            flpCheckoutShelf.Size = new Size(324, 312);
+            flpCheckoutShelf.Size = new Size(324, 371);
             flpCheckoutShelf.TabIndex = 6;
             flpCheckoutShelf.WrapContents = false;
             // 
@@ -359,21 +364,26 @@
             // 
             // tableLayoutPanel3
             // 
-            tableLayoutPanel3.ColumnCount = 6;
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 98.7175F));
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 1.2825011F));
+            tableLayoutPanel3.ColumnCount = 8;
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
             tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle());
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 12F));
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
             tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle());
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 30F));
-            tableLayoutPanel3.Controls.Add(btnPreBooking, 4, 0);
-            tableLayoutPanel3.Controls.Add(btnCancel, 2, 0);
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle());
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel3.Controls.Add(btnPreBooking, 6, 0);
+            tableLayoutPanel3.Controls.Add(btnCancel, 4, 0);
+            tableLayoutPanel3.Controls.Add(btnAddCustomer, 2, 0);
+            tableLayoutPanel3.Controls.Add(materialCard3, 0, 0);
             tableLayoutPanel3.Dock = DockStyle.Fill;
             tableLayoutPanel3.Location = new Point(24, 659);
             tableLayoutPanel3.Margin = new Padding(4);
             tableLayoutPanel3.Name = "tableLayoutPanel3";
             tableLayoutPanel3.RowCount = 1;
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             tableLayoutPanel3.Size = new Size(897, 66);
             tableLayoutPanel3.TabIndex = 3;
             // 
@@ -385,7 +395,7 @@
             btnPreBooking.Dock = DockStyle.Fill;
             btnPreBooking.HighEmphasis = true;
             btnPreBooking.Icon = null;
-            btnPreBooking.Location = new Point(744, 8);
+            btnPreBooking.Location = new Point(755, 8);
             btnPreBooking.Margin = new Padding(6, 8, 6, 8);
             btnPreBooking.MouseState = MaterialSkin.MouseState.HOVER;
             btnPreBooking.Name = "btnPreBooking";
@@ -406,7 +416,7 @@
             btnCancel.ForeColor = Color.IndianRed;
             btnCancel.HighEmphasis = true;
             btnCancel.Icon = null;
-            btnCancel.Location = new Point(643, 8);
+            btnCancel.Location = new Point(646, 8);
             btnCancel.Margin = new Padding(6, 8, 6, 8);
             btnCancel.MouseState = MaterialSkin.MouseState.HOVER;
             btnCancel.Name = "btnCancel";
@@ -419,6 +429,65 @@
             btnCancel.UseCompatibleTextRendering = true;
             btnCancel.UseVisualStyleBackColor = false;
             btnCancel.Click += btnCancel_Click;
+            // 
+            // btnAddCustomer
+            // 
+            btnAddCustomer.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            btnAddCustomer.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            btnAddCustomer.Depth = 0;
+            btnAddCustomer.Dock = DockStyle.Fill;
+            btnAddCustomer.HighEmphasis = true;
+            btnAddCustomer.Icon = null;
+            btnAddCustomer.Location = new Point(484, 6);
+            btnAddCustomer.Margin = new Padding(4, 6, 4, 6);
+            btnAddCustomer.MouseState = MaterialSkin.MouseState.HOVER;
+            btnAddCustomer.Name = "btnAddCustomer";
+            btnAddCustomer.NoAccentTextColor = Color.Empty;
+            btnAddCustomer.Size = new Size(132, 54);
+            btnAddCustomer.TabIndex = 3;
+            btnAddCustomer.Text = "Add Customer";
+            btnAddCustomer.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            btnAddCustomer.UseAccentColor = false;
+            btnAddCustomer.UseVisualStyleBackColor = true;
+            btnAddCustomer.Click += btnAddCustomer_Click;
+            // 
+            // materialCard3
+            // 
+            materialCard3.BackColor = Color.FromArgb(255, 255, 255);
+            materialCard3.Controls.Add(cmbCustomer);
+            materialCard3.Depth = 0;
+            materialCard3.Dock = DockStyle.Fill;
+            materialCard3.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            materialCard3.Location = new Point(0, 0);
+            materialCard3.Margin = new Padding(0);
+            materialCard3.MouseState = MaterialSkin.MouseState.HOVER;
+            materialCard3.Name = "materialCard3";
+            materialCard3.Padding = new Padding(10);
+            materialCard3.Size = new Size(460, 66);
+            materialCard3.TabIndex = 4;
+            // 
+            // cmbCustomer
+            // 
+            cmbCustomer.AutoResize = false;
+            cmbCustomer.BackColor = Color.FromArgb(255, 255, 255);
+            cmbCustomer.Depth = 0;
+            cmbCustomer.Dock = DockStyle.Fill;
+            cmbCustomer.DrawMode = DrawMode.OwnerDrawVariable;
+            cmbCustomer.DropDownHeight = 174;
+            cmbCustomer.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbCustomer.DropDownWidth = 121;
+            cmbCustomer.Font = new Font("Roboto Medium", 14F, FontStyle.Bold, GraphicsUnit.Pixel);
+            cmbCustomer.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            cmbCustomer.FormattingEnabled = true;
+            cmbCustomer.IntegralHeight = false;
+            cmbCustomer.ItemHeight = 43;
+            cmbCustomer.Location = new Point(10, 10);
+            cmbCustomer.MaxDropDownItems = 4;
+            cmbCustomer.MouseState = MaterialSkin.MouseState.OUT;
+            cmbCustomer.Name = "cmbCustomer";
+            cmbCustomer.Size = new Size(440, 49);
+            cmbCustomer.StartIndex = 0;
+            cmbCustomer.TabIndex = 0;
             // 
             // frmPosPage
             // 
@@ -440,6 +509,7 @@
             tableLayoutPanel4.PerformLayout();
             tableLayoutPanel3.ResumeLayout(false);
             tableLayoutPanel3.PerformLayout();
+            materialCard3.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -463,5 +533,8 @@
         private TableLayoutPanel tableLayoutPanel3;
         private MaterialSkin.Controls.MaterialButton btnPreBooking;
         private MaterialSkin.Controls.MaterialButton btnCancel;
+        private MaterialSkin.Controls.MaterialButton btnAddCustomer;
+        private MaterialSkin.Controls.MaterialCard materialCard3;
+        private MaterialSkin.Controls.MaterialComboBox cmbCustomer;
     }
 }

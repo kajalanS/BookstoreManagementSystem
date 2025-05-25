@@ -25,12 +25,12 @@ namespace BookstoreManagementSystemLibrary.Models
             IsDeleted = isDeleted;
         }
 
-        public Order(int orderId, int customerId, int userId, DateTime orderDate, decimal totalAmount, OrderStatus orderStatus, DeliveryMethod deliveryMethod, PaymentMethod paymentMethod, PaymentStatus paymentStatus, OrderType orderType, bool isDeleted, Customer? customer, User? user, ICollection<OrderDetail>? orderDetails, Receipt? receipt) : this(orderDate, totalAmount, orderStatus, deliveryMethod, paymentMethod, paymentStatus, orderType, isDeleted)
+        public Order(int orderId, int userId, DateTime orderDate, decimal totalAmount, OrderStatus orderStatus, DeliveryMethod deliveryMethod, PaymentMethod paymentMethod, PaymentStatus paymentStatus, OrderType orderType, bool isDeleted, User? user, ICollection<OrderDetail>? orderDetails, Receipt? receipt) : this(orderDate, totalAmount, orderStatus, deliveryMethod, paymentMethod, paymentStatus, orderType, isDeleted)
         {
             OrderId = orderId;
-            CustomerId = customerId;
+            //CustomerId = customerId;
             UserId = userId;
-            Customer = customer;
+            //Customer = customer;
             User = user;
             OrderDetails = orderDetails;
             Receipt = receipt;
@@ -42,10 +42,10 @@ namespace BookstoreManagementSystemLibrary.Models
         [Key]
         public int OrderId { get; set; }
 
-        /// <summary>
-        /// Gets or sets the foreign key for the customer placing the order.
-        /// </summary>
-        public required int CustomerId { get; set; }
+        ///// <summary>
+        ///// Gets or sets the foreign key for the customer placing the order.
+        ///// </summary>
+        //public required int CustomerId { get; set; }
 
         /// <summary>
         /// Gets or sets the foreign key for the user who created the order.
@@ -92,11 +92,11 @@ namespace BookstoreManagementSystemLibrary.Models
         /// </summary>
         public bool IsDeleted { get; set; } = false;
 
-        /// <summary>
-        /// Navigation property to the associated customer.
-        /// </summary>
-        [ForeignKey("CustomerId")]
-        public Customer? Customer { get; set; }
+        ///// <summary>
+        ///// Navigation property to the associated customer.
+        ///// </summary>
+        //[ForeignKey("CustomerId")]
+        //public Customer? Customer { get; set; }
 
         /// <summary>
         /// Navigation property to the associated user.

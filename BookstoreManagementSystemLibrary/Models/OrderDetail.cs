@@ -26,7 +26,6 @@ namespace BookstoreManagementSystemLibrary.Models
             OrderId = order.OrderId;
             BookId = book.BookId;
         }
-
         public OrderDetail(int orderDetailId, int orderId, int bookId, int quantity, decimal unitPrice, decimal? discount, bool isDeleted, Order? order, Book? book) : this(quantity, unitPrice, discount, isDeleted)
         {
             OrderDetailId = orderDetailId;

@@ -37,12 +37,12 @@ namespace BookstoreManagementSystemUI.Components.Dashboard.ActivityLogList
 
 		private void FullTableViewSub()
 		{
-			//frmFullTableView1.OnEditClicked += OnEditClicked;
+			//frmFullTableView1.OnExportClicked += OnExportClicked;
 			//frmFullTableView1.OnDeleteClicked += OnDeleteClicked;
 		}
 
 
-		//private void OnEditClicked(ListViewItem selected)
+		//private void OnExportClicked(ListViewItem selected)
 		//{
 		//	if (!int.TryParse(selected.Text, out int AuditLogId)) return;
 		//	var AuditLog = AuditLogList?.Find(x => x.LogId.Equals(AuditLogId));

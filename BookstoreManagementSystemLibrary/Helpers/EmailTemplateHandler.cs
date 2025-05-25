@@ -1,4 +1,4 @@
-﻿using BookstoreManagementSystemLibrary.Database.Core;
+using BookstoreManagementSystemLibrary.Database.Core;
 using BookstoreManagementSystemLibrary.Models;
 using System;
 using System.Collections.Generic;
@@ -186,6 +186,19 @@ namespace BookstoreManagementSystemLibrary.Helpers
             }
           },
           {
+            EmailTemplateType.PreOrder,
+            new List<EmailTemplatePlaceHolder> {
+                EmailTemplatePlaceHolder.Status,
+                EmailTemplatePlaceHolder.Username,
+                EmailTemplatePlaceHolder.OrderId,
+                EmailTemplatePlaceHolder.SubTotal,
+                EmailTemplatePlaceHolder.Discount,
+                EmailTemplatePlaceHolder.Total,
+                EmailTemplatePlaceHolder.OrderObject,
+                EmailTemplatePlaceHolder.OrderDate,
+            }
+          },
+          {
             EmailTemplateType.Invoice,
             new List<EmailTemplatePlaceHolder> {
                 //EmailTemplatePlaceHolder.Status,
@@ -203,19 +216,6 @@ namespace BookstoreManagementSystemLibrary.Helpers
             new List<EmailTemplatePlaceHolder> {
                 EmailTemplatePlaceHolder.Username,
                 EmailTemplatePlaceHolder.Password,
-            }
-          },
-          {
-            EmailTemplateType.PreOrder,
-            new List<EmailTemplatePlaceHolder> {
-                EmailTemplatePlaceHolder.Status,
-                EmailTemplatePlaceHolder.Username,
-                EmailTemplatePlaceHolder.OrderId,
-                EmailTemplatePlaceHolder.SubTotal,
-                EmailTemplatePlaceHolder.Discount,
-                EmailTemplatePlaceHolder.Total,
-                EmailTemplatePlaceHolder.OrderObject,
-                EmailTemplatePlaceHolder.OrderDate,
             }
           },
           {

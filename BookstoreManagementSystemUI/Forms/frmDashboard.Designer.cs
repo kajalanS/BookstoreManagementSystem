@@ -50,8 +50,8 @@
             tpGeneral = new TabPage();
             tpActivityLog = new TabPage();
             frmActivityLogPage1 = new Components.Dashboard.ActivityLogList.frmActivityLogPage();
-            imageList1 = new ImageList(components);
             tpNoAccess = new TabPage();
+            imageList1 = new ImageList(components);
             mtcRootLayout.SuspendLayout();
             tpDashboard.SuspendLayout();
             tpPOS.SuspendLayout();
@@ -117,11 +117,11 @@
             // 
             tpPOS.Controls.Add(frmPosPage1);
             tpPOS.ImageKey = "POS.png";
-            tpPOS.Location = new Point(4, 33);
+            tpPOS.Location = new Point(4, 62);
             tpPOS.Margin = new Padding(4);
             tpPOS.Name = "tpPOS";
             tpPOS.Padding = new Padding(4);
-            tpPOS.Size = new Size(1143, 582);
+            tpPOS.Size = new Size(1143, 553);
             tpPOS.TabIndex = 1;
             tpPOS.Text = "POS";
             tpPOS.UseVisualStyleBackColor = true;
@@ -134,17 +134,17 @@
             frmPosPage1.Margin = new Padding(4);
             frmPosPage1.Name = "frmPosPage1";
             frmPosPage1.ReloadPageDataDel = null;
-            frmPosPage1.Size = new Size(1135, 574);
+            frmPosPage1.Size = new Size(1135, 545);
             frmPosPage1.TabIndex = 1;
             // 
             // tpOrderList
             // 
             tpOrderList.Controls.Add(frmOrderListView);
             tpOrderList.ImageKey = "orderList.png";
-            tpOrderList.Location = new Point(4, 33);
+            tpOrderList.Location = new Point(4, 31);
             tpOrderList.Margin = new Padding(4);
             tpOrderList.Name = "tpOrderList";
-            tpOrderList.Size = new Size(1143, 582);
+            tpOrderList.Size = new Size(1143, 584);
             tpOrderList.TabIndex = 2;
             tpOrderList.Text = "Order List";
             tpOrderList.UseVisualStyleBackColor = true;
@@ -155,17 +155,17 @@
             frmOrderListView.Location = new Point(0, 0);
             frmOrderListView.Margin = new Padding(3, 2, 3, 2);
             frmOrderListView.Name = "frmOrderListView";
-            frmOrderListView.Size = new Size(1143, 582);
+            frmOrderListView.Size = new Size(1143, 584);
             frmOrderListView.TabIndex = 0;
             // 
             // tpPreBooking
             // 
             tpPreBooking.Controls.Add(frmPreOrderListView);
             tpPreBooking.ImageKey = "preBooking.png";
-            tpPreBooking.Location = new Point(4, 33);
+            tpPreBooking.Location = new Point(4, 31);
             tpPreBooking.Margin = new Padding(4);
             tpPreBooking.Name = "tpPreBooking";
-            tpPreBooking.Size = new Size(1143, 582);
+            tpPreBooking.Size = new Size(1143, 584);
             tpPreBooking.TabIndex = 3;
             tpPreBooking.Text = "Pre-Booking";
             tpPreBooking.UseVisualStyleBackColor = true;
@@ -176,17 +176,17 @@
             frmPreOrderListView.Location = new Point(0, 0);
             frmPreOrderListView.Margin = new Padding(3, 2, 3, 2);
             frmPreOrderListView.Name = "frmPreOrderListView";
-            frmPreOrderListView.Size = new Size(1143, 582);
+            frmPreOrderListView.Size = new Size(1143, 584);
             frmPreOrderListView.TabIndex = 0;
             // 
             // tpProfile
             // 
             tpProfile.Controls.Add(frmUserProfile1);
             tpProfile.ImageKey = "profile.png";
-            tpProfile.Location = new Point(4, 33);
+            tpProfile.Location = new Point(4, 31);
             tpProfile.Margin = new Padding(4);
             tpProfile.Name = "tpProfile";
-            tpProfile.Size = new Size(1143, 582);
+            tpProfile.Size = new Size(1143, 584);
             tpProfile.TabIndex = 4;
             tpProfile.Text = "Profile";
             tpProfile.UseVisualStyleBackColor = true;
@@ -198,17 +198,17 @@
             frmUserProfile1.Location = new Point(0, 0);
             frmUserProfile1.Margin = new Padding(4);
             frmUserProfile1.Name = "frmUserProfile1";
-            frmUserProfile1.Size = new Size(1143, 582);
+            frmUserProfile1.Size = new Size(1143, 584);
             frmUserProfile1.TabIndex = 0;
             // 
             // tpUserList
             // 
             tpUserList.Controls.Add(frmUserListPage1);
             tpUserList.ImageKey = "userList.png";
-            tpUserList.Location = new Point(4, 62);
+            tpUserList.Location = new Point(4, 31);
             tpUserList.Margin = new Padding(4);
             tpUserList.Name = "tpUserList";
-            tpUserList.Size = new Size(1143, 553);
+            tpUserList.Size = new Size(1143, 584);
             tpUserList.TabIndex = 6;
             tpUserList.Text = "User List";
             tpUserList.UseVisualStyleBackColor = true;
@@ -220,17 +220,17 @@
             frmUserListPage1.Location = new Point(0, 0);
             frmUserListPage1.Margin = new Padding(4, 3, 4, 3);
             frmUserListPage1.Name = "frmUserListPage1";
-            frmUserListPage1.Size = new Size(1143, 553);
+            frmUserListPage1.Size = new Size(1143, 584);
             frmUserListPage1.TabIndex = 0;
             // 
             // tpBookList
             // 
             tpBookList.Controls.Add(frmBookListPage1);
             tpBookList.ImageKey = "bookList.png";
-            tpBookList.Location = new Point(4, 33);
+            tpBookList.Location = new Point(4, 31);
             tpBookList.Margin = new Padding(4);
             tpBookList.Name = "tpBookList";
-            tpBookList.Size = new Size(1143, 582);
+            tpBookList.Size = new Size(1143, 584);
             tpBookList.TabIndex = 7;
             tpBookList.Text = "Book List";
             tpBookList.UseVisualStyleBackColor = true;
@@ -242,17 +242,17 @@
             frmBookListPage1.Location = new Point(0, 0);
             frmBookListPage1.Margin = new Padding(4, 3, 4, 3);
             frmBookListPage1.Name = "frmBookListPage1";
-            frmBookListPage1.Size = new Size(1143, 582);
+            frmBookListPage1.Size = new Size(1143, 584);
             frmBookListPage1.TabIndex = 0;
             // 
             // tpSupplierList
             // 
             tpSupplierList.Controls.Add(frmSupplierListPage1);
             tpSupplierList.ImageKey = "suppliesrList.png";
-            tpSupplierList.Location = new Point(4, 62);
+            tpSupplierList.Location = new Point(4, 31);
             tpSupplierList.Margin = new Padding(4);
             tpSupplierList.Name = "tpSupplierList";
-            tpSupplierList.Size = new Size(1143, 553);
+            tpSupplierList.Size = new Size(1143, 584);
             tpSupplierList.TabIndex = 8;
             tpSupplierList.Text = "Supplier List";
             tpSupplierList.UseVisualStyleBackColor = true;
@@ -264,16 +264,16 @@
             frmSupplierListPage1.Location = new Point(0, 0);
             frmSupplierListPage1.Margin = new Padding(4, 3, 4, 3);
             frmSupplierListPage1.Name = "frmSupplierListPage1";
-            frmSupplierListPage1.Size = new Size(1143, 553);
+            frmSupplierListPage1.Size = new Size(1143, 584);
             frmSupplierListPage1.TabIndex = 0;
             // 
             // tpGeneral
             // 
             tpGeneral.ImageKey = "general.png";
-            tpGeneral.Location = new Point(4, 62);
+            tpGeneral.Location = new Point(4, 31);
             tpGeneral.Margin = new Padding(4);
             tpGeneral.Name = "tpGeneral";
-            tpGeneral.Size = new Size(1143, 553);
+            tpGeneral.Size = new Size(1143, 584);
             tpGeneral.TabIndex = 9;
             tpGeneral.Text = "General";
             tpGeneral.UseVisualStyleBackColor = true;
@@ -282,10 +282,10 @@
             // 
             tpActivityLog.Controls.Add(frmActivityLogPage1);
             tpActivityLog.ImageKey = "activityLog.png";
-            tpActivityLog.Location = new Point(4, 62);
+            tpActivityLog.Location = new Point(4, 31);
             tpActivityLog.Margin = new Padding(4);
             tpActivityLog.Name = "tpActivityLog";
-            tpActivityLog.Size = new Size(1143, 553);
+            tpActivityLog.Size = new Size(1143, 584);
             tpActivityLog.TabIndex = 10;
             tpActivityLog.Text = "Activity Log";
             tpActivityLog.UseVisualStyleBackColor = true;
@@ -297,8 +297,21 @@
             frmActivityLogPage1.Location = new Point(0, 0);
             frmActivityLogPage1.Margin = new Padding(4, 3, 4, 3);
             frmActivityLogPage1.Name = "frmActivityLogPage1";
-            frmActivityLogPage1.Size = new Size(1143, 553);
+            frmActivityLogPage1.Size = new Size(1143, 584);
             frmActivityLogPage1.TabIndex = 0;
+            // 
+            // tpNoAccess
+            // 
+            tpNoAccess.BackgroundImage = Properties.Resources.no_access;
+            tpNoAccess.BackgroundImageLayout = ImageLayout.Zoom;
+            tpNoAccess.ImageKey = "no_access.png";
+            tpNoAccess.Location = new Point(4, 31);
+            tpNoAccess.Name = "tpNoAccess";
+            tpNoAccess.Padding = new Padding(3);
+            tpNoAccess.Size = new Size(1143, 584);
+            tpNoAccess.TabIndex = 11;
+            tpNoAccess.Text = "No Access";
+            tpNoAccess.UseVisualStyleBackColor = true;
             // 
             // imageList1
             // 
@@ -322,19 +335,6 @@
             imageList1.Images.SetKeyName(14, "suppliesrList.png");
             imageList1.Images.SetKeyName(15, "userList.png");
             imageList1.Images.SetKeyName(16, "no_access.png");
-            // 
-            // tpNoAccess
-            // 
-            tpNoAccess.BackgroundImage = Properties.Resources.no_access;
-            tpNoAccess.BackgroundImageLayout = ImageLayout.Zoom;
-            tpNoAccess.ImageKey = "no_access.png";
-            tpNoAccess.Location = new Point(4, 62);
-            tpNoAccess.Name = "tpNoAccess";
-            tpNoAccess.Padding = new Padding(3);
-            tpNoAccess.Size = new Size(1143, 553);
-            tpNoAccess.TabIndex = 11;
-            tpNoAccess.Text = "No Access";
-            tpNoAccess.UseVisualStyleBackColor = true;
             // 
             // frmDashboard
             // 

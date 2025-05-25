@@ -1,4 +1,4 @@
-﻿using BookstoreManagementSystemLibrary.Database.Core;
+using BookstoreManagementSystemLibrary.Database.Core;
 using BookstoreManagementSystemLibrary.Models;
 using Microsoft.EntityFrameworkCore;
 

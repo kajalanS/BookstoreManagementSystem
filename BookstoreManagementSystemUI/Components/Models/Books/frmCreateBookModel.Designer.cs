@@ -1,4 +1,4 @@
-﻿namespace BookstoreManagementSystemUI.Components.Models.Books
+namespace BookstoreManagementSystemUI.Components.Models.Books
 {
     partial class frmCreateBookModel
     {
@@ -117,7 +117,7 @@
             txtIsbn.ShortcutsEnabled = true;
             txtIsbn.Size = new Size(312, 48);
             txtIsbn.SkipLiterals = true;
-            txtIsbn.TabIndex = 10;
+            txtIsbn.TabIndex = 2;
             txtIsbn.TabStop = false;
             txtIsbn.TextAlign = HorizontalAlignment.Left;
             txtIsbn.TextMaskFormat = MaskFormat.IncludeLiterals;
@@ -249,7 +249,7 @@
             txtPrice.ShortcutsEnabled = true;
             txtPrice.Size = new Size(312, 48);
             txtPrice.SkipLiterals = true;
-            txtPrice.TabIndex = 4;
+            txtPrice.TabIndex = 3;
             txtPrice.TabStop = false;
             txtPrice.TextAlign = HorizontalAlignment.Left;
             txtPrice.TextMaskFormat = MaskFormat.IncludeLiterals;
@@ -403,7 +403,7 @@
             txtQuantity.ShortcutsEnabled = true;
             txtQuantity.Size = new Size(312, 48);
             txtQuantity.SkipLiterals = true;
-            txtQuantity.TabIndex = 5;
+            txtQuantity.TabIndex = 4;
             txtQuantity.TabStop = false;
             txtQuantity.TextAlign = HorizontalAlignment.Left;
             txtQuantity.TextMaskFormat = MaskFormat.IncludeLiterals;
@@ -434,7 +434,7 @@
             cmbCategory.Name = "cmbCategory";
             cmbCategory.Size = new Size(633, 49);
             cmbCategory.StartIndex = 0;
-            cmbCategory.TabIndex = 12;
+            cmbCategory.TabIndex = 5;
             // 
             // pbImage
             // 
@@ -485,7 +485,7 @@
             txtLanguage.ShortcutsEnabled = true;
             txtLanguage.Size = new Size(315, 48);
             txtLanguage.SkipLiterals = true;
-            txtLanguage.TabIndex = 14;
+            txtLanguage.TabIndex = 8;
             txtLanguage.TabStop = false;
             txtLanguage.TextAlign = HorizontalAlignment.Left;
             txtLanguage.TextMaskFormat = MaskFormat.IncludeLiterals;
@@ -525,19 +525,18 @@
         }
 
         #endregion
-
-        private TableLayoutPanel tableLayoutPanel1;
         private MaterialSkin.Controls.MaterialCard materialCard1;
-        private MaterialSkin.Controls.MaterialMaskedTextBox txtTitle;
-        private MaterialSkin.Controls.MaterialMaskedTextBox txtAuthor;
-        private MaterialSkin.Controls.MaterialMaskedTextBox txtPrice;
-        private MaterialSkin.Controls.MaterialMaskedTextBox txtQuantity;
-        private MaterialSkin.Controls.MaterialMaskedTextBox txtPublisher;
-        private MaterialSkin.Controls.MaterialMaskedTextBox txtYear;
-        private MaterialSkin.Controls.MaterialButton btnCreateBook;
-        private MaterialSkin.Controls.MaterialMaskedTextBox txtIsbn;
-        private MaterialSkin.Controls.MaterialComboBox cmbCategory;
-        private PictureBox pbImage;
-        private MaterialSkin.Controls.MaterialMaskedTextBox txtLanguage;
+        public TableLayoutPanel tableLayoutPanel1;
+        public MaterialSkin.Controls.MaterialMaskedTextBox txtTitle;
+        public MaterialSkin.Controls.MaterialMaskedTextBox txtAuthor;
+        public MaterialSkin.Controls.MaterialMaskedTextBox txtPrice;
+        public MaterialSkin.Controls.MaterialMaskedTextBox txtQuantity;
+        public MaterialSkin.Controls.MaterialMaskedTextBox txtPublisher;
+        public MaterialSkin.Controls.MaterialMaskedTextBox txtYear;
+        public MaterialSkin.Controls.MaterialButton btnCreateBook;
+        public MaterialSkin.Controls.MaterialMaskedTextBox txtIsbn;
+        public MaterialSkin.Controls.MaterialComboBox cmbCategory;
+        public PictureBox pbImage;
+        public MaterialSkin.Controls.MaterialMaskedTextBox txtLanguage;
     }
 }

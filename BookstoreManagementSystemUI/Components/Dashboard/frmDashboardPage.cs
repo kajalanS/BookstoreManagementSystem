@@ -93,8 +93,8 @@ namespace BookstoreManagementSystemUI.Components.Dashboard
         var worksheet = workbook.Worksheets.Add("OrderData");
 
         worksheet.Cell(1, 1).Value = "ID";
-        worksheet.Cell(1, 2).Value = "Customer";
-        worksheet.Cell(1, 3).Value = "User";
+        //worksheet.Cell(1, 2).Value = "Customer";
+        worksheet.Cell(1, 3).Value = "Customer";
         worksheet.Cell(1, 4).Value = "OrderDate";
         worksheet.Cell(1, 5).Value = "TotalAmount";
         worksheet.Cell(1, 6).Value = "OrderStatus";
@@ -108,7 +108,7 @@ namespace BookstoreManagementSystemUI.Components.Dashboard
         foreach (var item in data)
         {
           worksheet.Cell(row, 1).Value = item.OrderId;
-          worksheet.Cell(row, 2).Value = item.Customer?.Name;
+          //worksheet.Cell(row, 2).Value = item.Customer?.Name;
           worksheet.Cell(row, 3).Value = item.User?.Username;
           worksheet.Cell(row, 4).Value = item.OrderDate;
           worksheet.Cell(row, 5).Value = item.TotalAmount;
@@ -191,7 +191,7 @@ namespace BookstoreManagementSystemUI.Components.Dashboard
           worksheet.Cell(row, 5).Value = item.Quantity;
           worksheet.Cell(row, 6).Value = item.UnitPrice;
           worksheet.Cell(row, 7).Value = item.Discount;
-          worksheet.Cell(row, 8).Value = item.Order?.Customer?.Name;
+          worksheet.Cell(row, 8).Value = item.Order?.User?.Username;
           row++;
         }
 

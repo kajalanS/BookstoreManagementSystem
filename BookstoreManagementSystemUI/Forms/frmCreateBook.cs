@@ -1,4 +1,4 @@
-﻿using BookstoreManagementSystemLibrary.Models;
+using BookstoreManagementSystemLibrary.Models;
 using MaterialSkin.Controls;
 using System;
 using System.Collections.Generic;

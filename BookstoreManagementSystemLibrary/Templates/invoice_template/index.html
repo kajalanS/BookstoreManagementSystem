@@ -1,5 +1,10 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BookHaven Invoice</title>
     <style>
       body {
         font-family: Arial, sans-serif;
@@ -7,7 +12,7 @@
       }
       .header {
         text-align: center;
-        font-size: 18px;
+        font-size: 25px;
         font-weight: bold;
         margin-bottom: 10px;
       }
@@ -33,7 +38,7 @@
         text-align: right;
       }
       .separator {
-        border-top: 2px solid #000;
+        border-bottom: 2px solid #000;
         margin: 10px 0;
       }
       .invoice-summary {
@@ -58,18 +63,23 @@
     <div class="separator b3"></div>
     <div class="header">BookHaven Bookstore Invoice</div>
     <div class="separator b3"></div>
-    <div>Date: {{order_date}}</div>
+    <div>
+      <table class="invoice-summary">
+        <tr>
+          <td>Date: {{order_date}}</td>
+          <td>Invoice: #{{order_id}}</td>
+        </tr>
+      </table>
+    </div>
     <div class="separator"></div>
     <table class="items">
-      <tr>
+      <tr class="separator">
         <th>Item</th>
         <th>Qty</th>
         <th>Price</th>
         <th>Total</th>
       </tr>
-    </table>
-    <div class="separator"></div>
-    <table class="items">
+      <!-- Example row: -->
       <!-- <tr>
         <td>Book A</td>
         <td>2</td>

@@ -1,7 +1,8 @@
-﻿using BookstoreManagementSystemLibrary;
+using BookstoreManagementSystemLibrary;
 using BookstoreManagementSystemLibrary.Database.Core.Enum;
 using BookstoreManagementSystemLibrary.Models;
 using BookstoreManagementSystemUI.Components;
+using BookstoreManagementSystemUI.Components.Models.Books;
 using MaterialSkin.Controls;
 using System;
 using System.Collections.Generic;
@@ -18,29 +19,24 @@ namespace BookstoreManagementSystemUI.Forms
     public partial class frmDashboard : MaterialForm
     {
         #region Delegates
-
         public delegate void LoadCategory(List<Category>? category);
         public delegate void LoadBooks(List<Book>? books);
-
+        public delegate void LoadCustomers(List<User>? customers);
         public static LoadCategory? LoadCategoriesList { get; set; }
         public static LoadBooks? LoadBooksList { get; set; }
-
+        public static LoadCustomers? LoadCustomersList { get; set; }
         #endregion
-
-
 
         #region Property
         public frmLogin FrmLogin { get; }
 
-
         private TabPage selectedPage;
-
 
         protected Dictionary<Book, OrderDetail>? OrderDetailList = [];
 
-
         public List<Book>? BookList { get; protected set; }
         public List<Category>? CategoryList { get; protected set; }
+        public List<User>? CustomerList { get; protected set; }
 
         #endregion
 
@@ -60,7 +56,6 @@ namespace BookstoreManagementSystemUI.Forms
             InitPageDataLoad();
 
             HandleSubscrioption();
-
         }
 
         private void LoginUserControll()
@@ -149,6 +144,7 @@ namespace BookstoreManagementSystemUI.Forms
         {
             frmPosPage1.LoadBooks(BookList);
             frmPosPage1.LoadCategory(CategoryList);
+            frmPosPage1.LoadCustomer(CustomerList);
             frmOrderListView.SetUpPage(false);
             frmPreOrderListView.SetUpPage(true);
         }
@@ -156,6 +152,7 @@ namespace BookstoreManagementSystemUI.Forms
         private void HandleSubscrioption()
         {
             this.frmPosPage1.ReloadPageDataDel += LoadPagesOnLoad;
+            frmCreateBookModel.FullReloadRequest += LoadPagesOnLoad;
         }
 
         private void frmDashboard_Load(object sender, EventArgs e)
@@ -175,7 +172,6 @@ namespace BookstoreManagementSystemUI.Forms
         }
 
         #endregion
-
 
         private void LoadPagesOnLoad()
         {
@@ -199,6 +195,18 @@ namespace BookstoreManagementSystemUI.Forms
                 {
                     CategoryList = categoryResult.Data;
                     LoadCategoriesList?.Invoke(CategoryList);
+                }
+                else
+                {
+                    MaterialMessageBox.Show(categoryResult.Message, "Book Load", false, FlexibleMaterialForm.ButtonsPosition.Center);
+                }
+
+                var customerResult = process.GetAllCustomer();
+
+                if (customerResult.Data != null)
+                {
+                    CustomerList = customerResult.Data;
+                    LoadCustomersList?.Invoke(CustomerList);
                 }
                 else
                 {
